@@ -3,9 +3,11 @@ import 'package:church_app/feature/posts/presentation/viewmodels/home/home_state
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../generated/l10n.dart';
+
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
-  
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(homeViewModelProvider.notifier);
@@ -13,15 +15,15 @@ class HomePage extends ConsumerWidget {
 
     ref.listen(homeViewModelProvider, (previous, current) {
       if (current is HomeError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(current.message))
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(current.message)));
       }
     });
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Página inicial"),
+        title: Text(S.of(context).homePage),
         actions: [
           IconButton(
             onPressed: viewModel.logout,
@@ -29,17 +31,16 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: _buildBody(state),
+      body: _buildBody(state, context),
     );
   }
 
-  Widget _buildBody(HomeState state) {
-    return switch(state) {
-      HomeInitial() => const Center(child: Text("Bem-vindo!")),
+  Widget _buildBody(HomeState state, BuildContext context) {
+    return switch (state) {
+      HomeInitial() => Center(child: Text(S.of(context).welcome)),
       HomeLoading() => const Center(child: CircularProgressIndicator()),
-      HomeSuccess() => const Center(child: Text("Posts carregados!")),
-      HomeError() =>
-      const Center(child: Text("Ocorreu um erro. Tente novamente.")),
+      HomeSuccess() => Center(child: Text(S.of(context).postsLoaded)),
+      HomeError() => Center(child: Text(S.of(context).anErrorOccurred)),
     };
   }
 }

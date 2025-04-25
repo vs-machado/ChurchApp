@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "homePage": "Home page",
+  "welcome": "Welcome!",
+  "postsLoaded": "Posts loaded.",
+  "anErrorOccurred": "An error occurred. Try again.",
+  "registration": "Registration",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm password",
+  "register": "Register",
+  "insertAValidEmail": "Enter a valid email.",
+  "passwordRequiresLettersAndNumbers": "Password must have at least 8 characters and contain letters and numbers.",
+  "login": "Login",
+  "doesnHaveAnAccountRegister": "Don't have an account? Register"
+}

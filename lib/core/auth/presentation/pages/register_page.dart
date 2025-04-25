@@ -1,5 +1,6 @@
 import 'package:church_app/core/di/providers.dart';
 import 'package:church_app/core/util/validators.dart';
+import 'package:church_app/generated/l10n.dart' show S;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_state.dart';
@@ -74,7 +75,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Cadastro')),
+      appBar: AppBar(title: Text(S.of(context).registration)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -82,14 +83,14 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(labelText: S.of(context).email),
             ),
 
             TextField(
               controller: _passwordController,
               focusNode: _passwordFocusNode,
               decoration: InputDecoration(
-                labelText: 'Senha',
+                labelText: S.of(context).password,
                 suffixIcon:
                     _passwordHasFocus
                         ? IconButton(
@@ -113,7 +114,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               controller: _confirmPasswordController,
               focusNode: _confirmPasswordFocusNode,
               decoration: InputDecoration(
-                labelText: 'Confirmar senha',
+                labelText: S.of(context).confirmPassword,
                 suffixIcon:
                     _confirmPasswordHasFocus
                         ? IconButton(
@@ -138,7 +139,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
             if (_showValidationErrors && !_emailController.text.isValidEmail())
               Text(
-                'Insira um email válido.',
+                S.of(context).insertAValidEmail,
                 style: TextStyle(color: Colors.red, fontSize: 12),
               ),
 
@@ -146,7 +147,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 _emailController.text.isValidEmail() &&
                 !_passwordController.text.isValidPassword())
               Text(
-                'A senha deve possuir no mínimo 8 caracteres e conter letras e números.',
+                S.of(context).passwordRequiresLettersAndNumbers,
                 style: TextStyle(color: Colors.red, fontSize: 12),
               ),
 
@@ -177,7 +178,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               child:
                   state is RegisterLoading
                       ? const CircularProgressIndicator()
-                      : const Text('Cadastrar'),
+                      : Text(S.of(context).register),
             ),
           ],
         ),

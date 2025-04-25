@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/login/login_state.dart';
 
+import '../../../../generated/l10n.dart' show S;
+
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
@@ -37,12 +39,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(labelText: S.of(context).email),
             ),
 
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Senha'),
+              decoration: InputDecoration(labelText: S.of(context).password),
               obscureText: true,
             ),
 
@@ -59,7 +61,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               child:
                   state is LoginLoading
                       ? const CircularProgressIndicator()
-                      : const Text('Login'),
+                      : Text(S.of(context).login),
             ),
 
             const SizedBox(height: 12),
@@ -72,9 +74,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       builder: (context) => const RegisterPage(),
                     ),
                   ),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  'Não possui uma conta? Cadastre-se',
+                  S.of(context).doesnHaveAnAccountRegister,
                   style: TextStyle(fontSize: 12, color: Colors.blueAccent),
                 ),
               ),

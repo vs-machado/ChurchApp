@@ -1,0 +1,16 @@
+{
+  "@@locale": "pt_BR",
+  "homePage": "Página inicial",
+  "welcome": "Bem-vindo!",
+  "postsLoaded": "Posts carregados.",
+  "anErrorOccurred": "Ocorreu um erro. Tente novamente.",
+  "registration": "Cadastro",
+  "email": "Email",
+  "password": "Senha",
+  "confirmPassword": "Confirmar senha",
+  "insertAValidEmail": "Insira um email válido.",
+  "passwordRequiresLettersAndNumbers": "A senha deve possuir no mínimo 8 caracteres e conter letras e números.",
+  "register": "Cadastrar",
+  "login": "Login",
+  "doesnHaveAnAccountRegister": "Não possui uma conta? Cadastre-se"
+}
