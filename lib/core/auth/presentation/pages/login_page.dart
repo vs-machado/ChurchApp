@@ -22,58 +22,65 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     ref.listen(loginViewModelProvider, (previous, current) {
       if (current is LoginError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(current.message))
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(current.message)));
       }
     });
 
     return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 50),
-        children: [
-          TextField(
-            controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
-          ),
+      appBar: AppBar(title: const Text('Login')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 50),
+          children: [
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(labelText: 'Email'),
+            ),
 
-          TextField(
-            controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Senha'),
-            obscureText: true,
-          ),
+            TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(labelText: 'Senha'),
+              obscureText: true,
+            ),
 
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-          ElevatedButton(
-            onPressed: state is LoginLoading
-                ? null
-                : () =>
-                viewModel.login(
-                  _emailController.text,
-                  _passwordController.text,
+            ElevatedButton(
+              onPressed:
+                  state is LoginLoading
+                      ? null
+                      : () => viewModel.login(
+                        _emailController.text,
+                        _passwordController.text,
+                      ),
+              child:
+                  state is LoginLoading
+                      ? const CircularProgressIndicator()
+                      : const Text('Login'),
+            ),
+
+            const SizedBox(height: 12),
+
+            GestureDetector(
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterPage(),
+                    ),
+                  ),
+              child: const Center(
+                child: Text(
+                  'Não possui uma conta? Cadastre-se',
+                  style: TextStyle(fontSize: 12, color: Colors.blueAccent),
                 ),
-            child: state is LoginLoading
-                ? const CircularProgressIndicator()
-                : const Text('Login'),
-          ),
-
-          const SizedBox(height: 12),
-
-          GestureDetector(
-            onTap:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                ),
-            child: const Center(
-              child: Text(
-                'Não possui uma conta? Cadastre-se',
-                style: TextStyle(fontSize: 12, color: Colors.blueAccent),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
