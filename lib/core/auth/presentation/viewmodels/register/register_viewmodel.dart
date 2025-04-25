@@ -16,7 +16,9 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
     state = const RegisterLoading();
 
     if (password != confirmPassword) {
-      state = const RegisterError("As senhas inseridas não são iguais. Tente novamente.");
+      state = const RegisterError(
+        "As senhas inseridas não são iguais. Tente novamente.",
+      );
       return;
     }
 
@@ -26,9 +28,13 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
     } on SocketException catch (_) {
       state = const RegisterError("Erro: sem conexão com a internet.");
     } on AuthException catch (e) {
-      state = RegisterError(e.message); // "Falha no cadastro. Tente novamente mais tarde."
+      state = RegisterError(
+        "Falha no cadastro. Tente novamente mais tarde.",
+      ); //
     } catch (e) {
-      state = const RegisterError("Algo deu errado. Tente novamente mais tarde.");
+      state = const RegisterError(
+        "Algo deu errado. Tente novamente mais tarde.",
+      );
     }
   }
 }
