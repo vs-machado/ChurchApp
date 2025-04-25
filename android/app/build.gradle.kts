@@ -6,9 +6,9 @@ plugins {
 }
 
 android {
-    namespace = "com.example.church_app"
+    ndkVersion = "27.0.12077973"
+    namespace = "com.phoenix.church_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
