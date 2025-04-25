@@ -1,26 +1,16 @@
-class HomeState {
-  final bool isLoading;
-  final bool isSuccess;
-  final String? errorMessage;
+sealed class HomeState {}
+
+class HomeInitial extends HomeState {}
+
+class HomeLoading extends HomeState {}
+
+class HomeError extends HomeState {
+  final String message;
+
+  HomeError(this.message);
+}
+
+class HomeSuccess extends HomeState {
   // final List<PostUi> posts;
-
-  HomeState({
-    this.isLoading = false,
-    this.isSuccess = false,
-    this.errorMessage,
-  });
-
-  HomeState copyWith({
-    bool? isLoading,
-    bool? isSuccess,
-    String? errorMessage,
-    // List<PostUi>? posts
-  }) {
-    return HomeState(
-      isLoading: isLoading ?? this.isLoading,
-      isSuccess: isSuccess ?? this.isSuccess,
-      errorMessage: errorMessage ?? this.errorMessage,
-      // posts: posts ?? this.posts,
-    );
-  }
+  // HomeSuccess(this.posts);
 }

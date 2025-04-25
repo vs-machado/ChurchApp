@@ -9,32 +9,20 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
   LoginViewModel({required AuthService authService})
     : _authService = authService,
-      super(LoginState());
+      super(LoginInitial());
 
   void login(String email, String password) async {
-    state = state.copyWith(isLoading: true, errorMessage: null);
+    state = LoginLoading();
 
     try {
       await _authService.signInWithEmailPassword(email, password);
-      state = state.copyWith(isLoading: false);
+      state = LoginSuccess();
     } on SocketException catch (_) {
-      state = state.copyWith(
-        isLoading: false,
-        isError: true,
-        errorMessage: "Erro: sem conexão com a internet.",
-      );
+      state = LoginError("Erro: sem conexão com a internet.");
     } on AuthException catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        isError: true,
-        errorMessage: e.message //"Falha no login. Tente novamente mais tarde.",
-      );
+      state = LoginError(e.message);
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        isError: true,
-        errorMessage: "Algo deu errado. Tente novamente mais tarde.",
-      );
+      state = LoginError("Algo deu errado. Tente novamente mais tarde.");
     }
   }
 }

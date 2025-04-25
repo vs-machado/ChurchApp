@@ -1,27 +1,21 @@
-class RegisterState {
-  final bool isLoading;
-  final bool isSuccess;
-  final bool isError;
-  final String? errorMessage;
+sealed class RegisterState {
+  const RegisterState();
+}
 
-  RegisterState({
-    this.isLoading = false, 
-    this.isSuccess = false,
-    this.isError = false,
-    this.errorMessage
-  });
+class RegisterInitial extends RegisterState {
+  const RegisterInitial();
+}
 
-  RegisterState copyWith({
-    bool? isLoading,
-    bool? isSuccess,
-    bool? isError,
-    String? errorMessage,
-  }) {
-    return RegisterState(
-      isLoading: isLoading ?? this.isLoading,
-      isSuccess: isSuccess ?? this.isSuccess,
-      isError: isError ?? this.isError,
-      errorMessage: errorMessage ?? this.errorMessage
-    );
-  }
+class RegisterLoading extends RegisterState {
+  const RegisterLoading();
+}
+
+class RegisterSuccess extends RegisterState {
+  const RegisterSuccess();
+}
+
+class RegisterError extends RegisterState {
+  final String message;
+  
+  const RegisterError(this.message);
 }

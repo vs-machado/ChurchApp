@@ -1,16 +1,14 @@
 // Gerenciador de estado do login
-class LoginState {
-  final bool isLoading;
-  final bool isError;
-  final String? errorMessage;
+sealed class LoginState {}
 
-  LoginState({this.isLoading = false, this.isError = false, this.errorMessage});
+class LoginInitial extends LoginState {}
 
-  LoginState copyWith({bool? isLoading, bool? isError, String? errorMessage}) {
-    return LoginState(
-      isLoading: isLoading ?? this.isLoading,
-      isError: isError ?? this.isError,
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
-  }
+class LoginLoading extends LoginState {}
+
+class LoginError extends LoginState {
+  final String message;
+
+  LoginError(this.message);
 }
+
+class LoginSuccess extends LoginState {}

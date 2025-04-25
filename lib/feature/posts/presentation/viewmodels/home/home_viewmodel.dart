@@ -7,7 +7,7 @@ class HomeViewModel extends StateNotifier<HomeState> {
 
   HomeViewModel({required AuthService authService})
     : _authService = authService,
-      super(HomeState());
+      super(HomeInitial());
 
   void logout() {
     _authService.signOut();

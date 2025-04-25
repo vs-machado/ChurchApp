@@ -1,6 +1,7 @@
 import 'package:church_app/core/di/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:church_app/core/auth/presentation/viewmodels/register/register_state.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -17,13 +18,17 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(registerViewModelProvider.notifier);
+    final state = ref.watch(registerViewModelProvider);
 
-    // Quando o usuário se cadastra com sucesso a tela é fechada
     ref.listen(registerViewModelProvider, (previous, current) {
-      if(current.isError) {
+      if (current is RegisterError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(current.errorMessage.toString()))
+          SnackBar(content: Text(current.message))
         );
+      }
+      // A classe AuthGate automaticamente redireciona o usuário para a HomePage
+      else if (current is RegisterSuccess) {
+        Navigator.of(context).pop();
       }
     });
 
@@ -52,13 +57,16 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           const SizedBox(height: 12),
 
           ElevatedButton(
-            onPressed:
-                () => viewModel.signUp(
-                  _emailController.text,
-                  _passwordController.text,
-                  _confirmPasswordController.text,
-                ),
-            child: Text('Cadastrar'),
+            onPressed: state is RegisterLoading
+                ? null  // Disable button when loading
+                : () => viewModel.signUp(
+                    _emailController.text,
+                    _passwordController.text,
+                    _confirmPasswordController.text,
+                  ),
+            child: state is RegisterLoading
+                ? const CircularProgressIndicator()
+                : const Text('Cadastrar'),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:church_app/core/auth/presentation/pages/register_page.dart';
 import 'package:church_app/core/di/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:church_app/core/auth/presentation/viewmodels/login/login_state.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -17,11 +18,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
+    final state = ref.watch(loginViewModelProvider);
 
     ref.listen(loginViewModelProvider, (previous, current) {
-      if(current.isError){
+      if (current is LoginError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(current.errorMessage.toString()))
+            SnackBar(content: Text(current.message))
         );
       }
     });
@@ -44,12 +46,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           const SizedBox(height: 12),
 
           ElevatedButton(
-            onPressed:
-                () => viewModel.login(
+            onPressed: state is LoginLoading
+                ? null
+                : () =>
+                viewModel.login(
                   _emailController.text,
                   _passwordController.text,
                 ),
-            child: Text('Login'),
+            child: state is LoginLoading
+                ? const CircularProgressIndicator()
+                : const Text('Login'),
           ),
 
           const SizedBox(height: 12),
