@@ -1,9 +1,10 @@
 import 'package:church_app/core/auth/presentation/pages/login_page.dart';
+import 'package:church_app/core/auth/presentation/pages/register_page_2.dart';
 import 'package:church_app/feature/posts/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// GATE de autenticação. Caso o usuário não esteja autenticado, ele será redirecionado para a tela de login.	
+/// GATE de autenticação. Caso o usuário não esteja autenticado, ele será redirecionado para a tela de login.
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 
@@ -12,7 +13,7 @@ class AuthGate extends StatelessWidget {
     return StreamBuilder(
       stream: Supabase.instance.client.auth.onAuthStateChange,
       builder: (context, snapshot) {
-        if(snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
@@ -23,8 +24,8 @@ class AuthGate extends StatelessWidget {
         if (session != null) {
           return const HomePage();
         } else {
-          return const LoginPage();
-        } 
+          return const RegisterPage2();
+        }
       },
     );
   }
