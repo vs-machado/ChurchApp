@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/login/login_state.dart';
 
 import '../../../../generated/l10n.dart' show S;
+import '../../../domain/util/network_error.dart';
+import '../../../auth/util/auth_error.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -24,9 +26,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     ref.listen(loginViewModelProvider, (previous, current) {
       if (current is LoginError) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(current.message)));
+        final error = current.error;
+        String? errorMessage;
+
+        switch (error) {
+          case AuthError(): // AuthError é exibido como um Text na UI.
+            {}
+          case NetworkError():
+            errorMessage = error.toErrorString(context);
+          case Error():
+            errorMessage = S.of(context).somethingWentWrong;
+        }
+
+        if (errorMessage != null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(errorMessage)));
+        }
       }
     });
 
@@ -65,6 +81,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             ),
 
             const SizedBox(height: 12),
+
+            // Exibe mensagem de erro de login
+            if (state is LoginError && state.error is AuthError)
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+                child: Text(
+                  (state.error as AuthError).toErrorString(context),
+                  style: const TextStyle(color: Colors.red, fontSize: 12),
+                  textAlign: TextAlign.start,
+                ),
+              ),
 
             GestureDetector(
               onTap:

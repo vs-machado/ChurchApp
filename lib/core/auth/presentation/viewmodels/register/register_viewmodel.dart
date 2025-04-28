@@ -4,6 +4,9 @@ import 'package:church_app/core/auth/domain/auth_service.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:church_app/core/auth/util/auth_error.dart';
+import 'package:church_app/core/domain/util/network_error.dart';
+
 
 class RegisterViewModel extends StateNotifier<RegisterState> {
   final AuthService _authService;
@@ -16,9 +19,7 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
     state = const RegisterLoading();
 
     if (password != confirmPassword) {
-      state = const RegisterError(
-        "As senhas inseridas não são iguais. Tente novamente.",
-      );
+      state = RegisterError(AuthError.passwordsAreNotTheSame);
       return;
     }
 
@@ -26,15 +27,20 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
       await _authService.signUpWithEmailPassword(email, password);
       state = const RegisterSuccess();
     } on SocketException catch (_) {
-      state = const RegisterError("Erro: sem conexão com a internet.");
+      state = RegisterError(NetworkError.noInternetConnection);
+    } on AuthRetryableFetchException catch (_) {
+      state = RegisterError(NetworkError.requestTimeout);
     } on AuthException catch (e) {
-      state = RegisterError(
-        "Falha no cadastro. Tente novamente mais tarde.",
-      ); //
+      if (e.statusCode == '500') {
+        state = RegisterError(NetworkError.serverError);
+      }
+      if (e.statusCode == '429') {
+        state = RegisterError(NetworkError.tooManyRequests);
+      } else {
+        state = RegisterError(AuthError.registerFailed);
+      }
     } catch (e) {
-      state = const RegisterError(
-        "Algo deu errado. Tente novamente mais tarde.",
-      );
+      state = RegisterError(NetworkError.unknown);
     }
   }
 }

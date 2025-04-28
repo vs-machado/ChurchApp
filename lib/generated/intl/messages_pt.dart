@@ -31,17 +31,41 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "homePage": MessageLookupByLibrary.simpleMessage("Página inicial"),
+    "incorrectPassword": MessageLookupByLibrary.simpleMessage(
+      "Email ou senha incorretos. Corrija e tente novamente.",
+    ),
     "insertAValidEmail": MessageLookupByLibrary.simpleMessage(
       "Insira um email válido.",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
+      "Erro: sem conexão com a internet.",
+    ),
     "password": MessageLookupByLibrary.simpleMessage("Senha"),
     "passwordRequiresLettersAndNumbers": MessageLookupByLibrary.simpleMessage(
       "A senha deve possuir no mínimo 8 caracteres e conter letras e números.",
     ),
+    "passwordsAreNotTheSame": MessageLookupByLibrary.simpleMessage(
+      "As senhas inseridas não são iguais. Tente novamente.",
+    ),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts carregados."),
     "register": MessageLookupByLibrary.simpleMessage("Cadastrar"),
+    "registerFailed": MessageLookupByLibrary.simpleMessage(
+      "Falha no cadastro. Tente novamente mais tarde.",
+    ),
     "registration": MessageLookupByLibrary.simpleMessage("Cadastro"),
+    "requestTimeout": MessageLookupByLibrary.simpleMessage(
+      "A conexão expirou. Por favor, tente novamente.",
+    ),
+    "serverError": MessageLookupByLibrary.simpleMessage(
+      "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.",
+    ),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Algo deu errado. Tente novamente mais tarde.",
+    ),
+    "tooManyRequests": MessageLookupByLibrary.simpleMessage(
+      "Demasiados pedidos. Por favor, aguarde um momento e tente novamente.",
+    ),
     "welcome": MessageLookupByLibrary.simpleMessage("Bem-vindo!"),
   };
 }

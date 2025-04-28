@@ -1,9 +1,11 @@
 import 'package:church_app/core/di/providers.dart';
-import 'package:church_app/core/util/validators.dart';
+import 'package:church_app/core/auth/domain/validators.dart';
 import 'package:church_app/generated/l10n.dart' show S;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_state.dart';
+import 'package:church_app/core/auth/util/auth_error.dart';
+import 'package:church_app/core/domain/util/network_error.dart';
 
 /// Página de registro
 /// Solicita um email e senha.
@@ -45,6 +47,22 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     });
   }
 
+  AuthError? _validateInputs() {
+    if (_showValidationErrors && !_emailController.text.isValidEmail()) {
+      return AuthError.invalidEmail;
+    }
+    if (_showValidationErrors &&
+        _passwordController.text != _confirmPasswordController.text) {
+      return AuthError.passwordsAreNotTheSame;
+    }
+    if (_showValidationErrors &&
+        _emailController.text.isValidEmail() &&
+        !_passwordController.text.isValidPassword()) {
+      return AuthError.passwordRequiresLettersAndNumbers;
+    }
+    return null;
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -64,12 +82,24 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
     ref.listen(registerViewModelProvider, (previous, current) {
       if (current is RegisterError) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(current.message)));
-      }
-      // A classe AuthGate automaticamente redireciona o usuário para a HomePage
-      else if (current is RegisterSuccess) {
+        final error = current.error;
+        String? errorMessage;
+
+        switch (error) {
+          case AuthError():
+            {} // AuthError é exibido como um Text na UI.
+          case NetworkError():
+            errorMessage = error.toErrorString(context);
+          case Error():
+            errorMessage = S.of(context).somethingWentWrong;
+        }
+
+        if (errorMessage != null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(errorMessage)));
+        }
+      } else if (current is RegisterSuccess) {
         Navigator.of(context).pop();
       }
     });
@@ -137,21 +167,24 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
             const SizedBox(height: 12),
 
-            if (_showValidationErrors && !_emailController.text.isValidEmail())
-              Text(
-                S.of(context).insertAValidEmail,
-                style: TextStyle(color: Colors.red, fontSize: 12),
-              ),
-
-            if (_showValidationErrors &&
-                _emailController.text.isValidEmail() &&
-                !_passwordController.text.isValidPassword())
-              Text(
-                S.of(context).passwordRequiresLettersAndNumbers,
-                style: TextStyle(color: Colors.red, fontSize: 12),
-              ),
-
-            const SizedBox(height: 12),
+            Builder(
+              builder: (context) {
+                final error = _validateInputs();
+                if (error != null) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        error.toErrorString(context),
+                        style: TextStyle(color: Colors.red, fontSize: 12),
+                      ),
+                      const SizedBox(height: 12),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
 
             ElevatedButton(
               onPressed:

@@ -12,5 +12,13 @@
   "insertAValidEmail": "Enter a valid email.",
   "passwordRequiresLettersAndNumbers": "Password must have at least 8 characters and contain letters and numbers.",
   "login": "Login",
-  "doesnHaveAnAccountRegister": "Don't have an account? Register"
+  "doesnHaveAnAccountRegister": "Don't have an account? Register",
+  "noInternetConnection": "No internet connection. Please check your network and try again.",
+  "requestTimeout": "The request timed out. Please try again.",
+  "tooManyRequests": "Too many requests. Please wait a moment and try again.",
+  "registerFailed": "Registration failed. Please try again.",
+  "somethingWentWrong": "Something went wrong. Please try again.",
+  "serverError": "A server error occurred. Please try again later.",
+  "passwordsAreNotTheSame": "Passwords do not match. Please try again.",
+  "incorrectPassword": "Incorrect email or password. Please check your credentials and try again."
 }

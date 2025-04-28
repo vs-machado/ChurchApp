@@ -31,17 +31,41 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "homePage": MessageLookupByLibrary.simpleMessage("Home page"),
+    "incorrectPassword": MessageLookupByLibrary.simpleMessage(
+      "Incorrect email or password. Please check your credentials and try again.",
+    ),
     "insertAValidEmail": MessageLookupByLibrary.simpleMessage(
       "Enter a valid email.",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
+      "No internet connection. Please check your network and try again.",
+    ),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordRequiresLettersAndNumbers": MessageLookupByLibrary.simpleMessage(
       "Password must have at least 8 characters and contain letters and numbers.",
     ),
+    "passwordsAreNotTheSame": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match. Please try again.",
+    ),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts loaded."),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "registerFailed": MessageLookupByLibrary.simpleMessage(
+      "Registration failed. Please try again.",
+    ),
     "registration": MessageLookupByLibrary.simpleMessage("Registration"),
+    "requestTimeout": MessageLookupByLibrary.simpleMessage(
+      "The request timed out. Please try again.",
+    ),
+    "serverError": MessageLookupByLibrary.simpleMessage(
+      "A server error occurred. Please try again later.",
+    ),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Please try again.",
+    ),
+    "tooManyRequests": MessageLookupByLibrary.simpleMessage(
+      "Too many requests. Please wait a moment and try again.",
+    ),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome!"),
   };
 }

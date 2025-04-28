@@ -1,3 +1,5 @@
+import 'package:church_app/core/domain/util/error.dart';
+
 sealed class RegisterState {
   const RegisterState();
 }
@@ -15,7 +17,7 @@ class RegisterSuccess extends RegisterState {
 }
 
 class RegisterError extends RegisterState {
-  final String message;
+  final Error error;
   
-  const RegisterError(this.message);
+  const RegisterError(this.error);
 }

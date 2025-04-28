@@ -154,6 +154,86 @@ class S {
       args: [],
     );
   }
+
+  /// `No internet connection. Please check your network and try again.`
+  String get noInternetConnection {
+    return Intl.message(
+      'No internet connection. Please check your network and try again.',
+      name: 'noInternetConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The request timed out. Please try again.`
+  String get requestTimeout {
+    return Intl.message(
+      'The request timed out. Please try again.',
+      name: 'requestTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Too many requests. Please wait a moment and try again.`
+  String get tooManyRequests {
+    return Intl.message(
+      'Too many requests. Please wait a moment and try again.',
+      name: 'tooManyRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration failed. Please try again.`
+  String get registerFailed {
+    return Intl.message(
+      'Registration failed. Please try again.',
+      name: 'registerFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again.`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong. Please try again.',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A server error occurred. Please try again later.`
+  String get serverError {
+    return Intl.message(
+      'A server error occurred. Please try again later.',
+      name: 'serverError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match. Please try again.`
+  String get passwordsAreNotTheSame {
+    return Intl.message(
+      'Passwords do not match. Please try again.',
+      name: 'passwordsAreNotTheSame',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect email or password. Please check your credentials and try again.`
+  String get incorrectPassword {
+    return Intl.message(
+      'Incorrect email or password. Please check your credentials and try again.',
+      name: 'incorrectPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
