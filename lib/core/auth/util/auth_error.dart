@@ -11,6 +11,7 @@ enum AuthError implements Error {
   loginFailed,
   incorrectPassword,
   emailAlreadyInUse,
+  emptyPassword,
 }
 
 extension ErrorMessage on AuthError {
@@ -24,6 +25,7 @@ extension ErrorMessage on AuthError {
       AuthError.loginFailed => S.of(context).somethingWentWrong,
       AuthError.incorrectPassword => S.of(context).incorrectPassword,
       AuthError.emailAlreadyInUse => S.of(context).emailAlreadyInUse,
+      AuthError.emptyPassword => S.of(context).thePasswordFieldCantBeEmpty,
     };
   }
 }

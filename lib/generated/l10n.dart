@@ -304,6 +304,16 @@ class S {
       args: [],
     );
   }
+
+  /// `The password field cannot be empty`
+  String get thePasswordFieldCantBeEmpty {
+    return Intl.message(
+      'The password field cannot be empty',
+      name: 'thePasswordFieldCantBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,3 +1,4 @@
+import 'package:church_app/core/auth/presentation/components/sliding_login_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
@@ -14,10 +15,10 @@ class RegisterPage2 extends ConsumerStatefulWidget {
 
 class _RegisterPage2State extends ConsumerState<RegisterPage2> {
   bool _showRegisterCard = false;
+  bool _showLoginCard = false;
 
   @override
   Widget build(BuildContext context) {
-    // Set status bar to be visible on black background
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -30,9 +31,6 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
         backgroundColor: Colors.green,
         body: Stack(
           children: [
-            // Background image or color can go here
-
-            // Main card at the bottom
             Positioned(
               bottom: 0,
               left: 0,
@@ -67,7 +65,6 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                       ),
                       const SizedBox(height: 16.0),
 
-                      // Google sign-in button
                       ElevatedButton(
                         onPressed: () {
                           // Implementar google sign-in/sign-up
@@ -109,7 +106,6 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
 
                       const SizedBox(height: 8.0),
 
-                      // Divider with "or" text
                       Row(
                         children: [
                           Expanded(
@@ -141,7 +137,6 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
 
                       const SizedBox(height: 8.0),
 
-                      // Email registration button
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -185,7 +180,6 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
 
                       const SizedBox(height: 12.0),
 
-                      // Login link
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -198,10 +192,9 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                           ),
                           InkWell(
                             onTap: () {
-                              // Navigate to login page
-                              Navigator.of(
-                                context,
-                              ).pushReplacementNamed('/login');
+                              setState(() {
+                                _showLoginCard = true;
+                              });
                             },
                             child: Text(
                               S.of(context).enter,
@@ -220,7 +213,6 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
               ),
             ),
 
-            // Sliding registration card
             if (_showRegisterCard)
               Positioned(
                 bottom: 0,
@@ -230,6 +222,19 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                   onClose: () {
                     setState(() {
                       _showRegisterCard = false;
+                    });
+                  },
+                ),
+              ),
+            if (_showLoginCard)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: SlidingLoginCard(
+                  onClose: () {
+                    setState(() {
+                      _showLoginCard = false;
                     });
                   },
                 ),

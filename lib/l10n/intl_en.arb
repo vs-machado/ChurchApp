@@ -28,5 +28,6 @@
   "enter": "Enter",
   "createYourAccount": "Create your account",
   "or": "or",
-  "haveAnAccount": "Already have an account?"
+  "haveAnAccount": "Already have an account?",
+  "thePasswordFieldCantBeEmpty": "The password field cannot be empty"
 }

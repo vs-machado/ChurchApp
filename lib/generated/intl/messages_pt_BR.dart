@@ -76,6 +76,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo deu errado. Tente novamente mais tarde.",
     ),
+    "thePasswordFieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
+      "O campo senha não pode estar vazio",
+    ),
     "tooManyRequests": MessageLookupByLibrary.simpleMessage(
       "Muitas requisições. Por favor, aguarde um momento e tente novamente.",
     ),
