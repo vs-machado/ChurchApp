@@ -244,6 +244,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome to Reino Church!`
+  String get welcomeTo {
+    return Intl.message(
+      'Welcome to Reino Church!',
+      name: 'welcomeTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with Google account`
+  String get signInGoogleAccount {
+    return Intl.message(
+      'Sign in with Google account',
+      name: 'signInGoogleAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register with email and password`
+  String get registerEmailPassword {
+    return Intl.message(
+      'Register with email and password',
+      name: 'registerEmailPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter`
+  String get enter {
+    return Intl.message('Enter', name: 'enter', desc: '', args: []);
+  }
+
+  /// `Create your account`
+  String get createYourAccount {
+    return Intl.message(
+      'Create your account',
+      name: 'createYourAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `or`
+  String get or {
+    return Intl.message('or', name: 'or', desc: '', args: []);
+  }
+
+  /// `Already have an account?`
+  String get haveAnAccount {
+    return Intl.message(
+      'Already have an account?',
+      name: 'haveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

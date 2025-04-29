@@ -58,8 +58,8 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        'Bem vindo ao Reino Church!',
+                      Text(
+                        S.of(context).welcomeTo,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    'Entrar com conta Google',
+                                    S.of(context).signInGoogleAccount,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -123,7 +123,7 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                               horizontal: 16.0,
                             ),
                             child: Text(
-                              'ou',
+                              S.of(context).or,
                               style: TextStyle(
                                 color: Colors.grey.shade900,
                                 fontSize: 14.0,
@@ -171,7 +171,7 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    'Registrar com email e senha',
+                                    S.of(context).registerEmailPassword,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -190,7 +190,7 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Possui uma conta? ',
+                            S.of(context).haveAnAccount,
                             style: const TextStyle(
                               fontSize: 13.0,
                               color: Colors.black54,
@@ -204,7 +204,7 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                               ).pushReplacementNamed('/login');
                             },
                             child: Text(
-                              'Entrar',
+                              S.of(context).enter,
                               style: const TextStyle(
                                 fontSize: 13.0,
                                 fontWeight: FontWeight.bold,

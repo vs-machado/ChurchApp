@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ocorreu um erro. Tente novamente.",
     ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirmar senha"),
+    "createYourAccount": MessageLookupByLibrary.simpleMessage("Crie sua conta"),
     "doesnHaveAnAccountRegister": MessageLookupByLibrary.simpleMessage(
       "Não possui uma conta? Cadastre-se",
     ),
@@ -33,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "Erro: Este email já foi cadastrado anteriormente.",
     ),
+    "enter": MessageLookupByLibrary.simpleMessage("Entrar"),
+    "haveAnAccount": MessageLookupByLibrary.simpleMessage("Possui uma conta?"),
     "homePage": MessageLookupByLibrary.simpleMessage("Página inicial"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Email ou senha incorretos. Corrija e tente novamente.",
@@ -44,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Erro: sem conexão com a internet.",
     ),
+    "or": MessageLookupByLibrary.simpleMessage("ou"),
     "password": MessageLookupByLibrary.simpleMessage("Senha"),
     "passwordRequiresLettersAndNumbers": MessageLookupByLibrary.simpleMessage(
       "A senha deve possuir no mínimo 8 caracteres e conter letras e números.",
@@ -53,6 +57,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts carregados."),
     "register": MessageLookupByLibrary.simpleMessage("Cadastrar"),
+    "registerEmailPassword": MessageLookupByLibrary.simpleMessage(
+      "Registrar com email e senha",
+    ),
     "registerFailed": MessageLookupByLibrary.simpleMessage(
       "Falha no cadastro. Tente novamente mais tarde.",
     ),
@@ -63,6 +70,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "serverError": MessageLookupByLibrary.simpleMessage(
       "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.",
     ),
+    "signInGoogleAccount": MessageLookupByLibrary.simpleMessage(
+      "Entrar com conta Google",
+    ),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Algo deu errado. Tente novamente mais tarde.",
     ),
@@ -70,5 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Muitas requisições. Por favor, aguarde um momento e tente novamente.",
     ),
     "welcome": MessageLookupByLibrary.simpleMessage("Bem-vindo!"),
+    "welcomeTo": MessageLookupByLibrary.simpleMessage(
+      "Bem vindo ao Reino Church!",
+    ),
   };
 }

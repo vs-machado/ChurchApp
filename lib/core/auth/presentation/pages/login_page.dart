@@ -47,7 +47,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: Text(S.of(context).login)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(

@@ -21,5 +21,12 @@
   "serverError": "A server error occurred. Please try again later.",
   "passwordsAreNotTheSame": "Passwords do not match. Please try again.",
   "incorrectPassword": "Incorrect email or password. Please check your credentials and try again.",
-  "emailAlreadyInUse": "Error: This email has already been registered."
+  "emailAlreadyInUse": "Error: This email has already been registered.",
+  "welcomeTo": "Welcome to Reino Church!",
+  "signInGoogleAccount": "Sign in with Google account",
+  "registerEmailPassword": "Register with email and password",
+  "enter": "Enter",
+  "createYourAccount": "Create your account",
+  "or": "or",
+  "haveAnAccount": "Already have an account?"
 }

@@ -21,5 +21,12 @@
   "tooManyRequests": "Muitas requisições. Por favor, aguarde um momento e tente novamente.",
   "serverError": "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.",
   "incorrectPassword": "Email ou senha incorretos. Corrija e tente novamente.",
-  "emailAlreadyInUse": "Erro: Este email já foi cadastrado anteriormente."
+  "emailAlreadyInUse": "Erro: Este email já foi cadastrado anteriormente.",
+  "welcomeTo": "Bem vindo ao Reino Church!",
+  "signInGoogleAccount": "Entrar com conta Google",
+  "registerEmailPassword": "Registrar com email e senha",
+  "enter": "Entrar",
+  "createYourAccount": "Crie sua conta",
+  "or": "ou",
+  "haveAnAccount": "Possui uma conta?"
 }

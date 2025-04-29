@@ -167,13 +167,13 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                         onPressed: _closeCard,
                         padding: const EdgeInsets.all(0.0),
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 42.0),
+                            padding: EdgeInsets.only(right: 42.0),
                             // Offset for the icon button width
                             child: Text(
-                              'Crie sua conta',
+                              S.of(context).createYourAccount,
                               style: const TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
@@ -332,8 +332,8 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                                   ? const CircularProgressIndicator(
                                     color: Colors.white,
                                   )
-                                  : const Text(
-                                    'Registrar',
+                                  : Text(
+                                    S.of(context).register,
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,

@@ -26,12 +26,19 @@ class MessageLookup extends MessageLookupByLibrary {
       "An error occurred. Try again.",
     ),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
+    "createYourAccount": MessageLookupByLibrary.simpleMessage(
+      "Create your account",
+    ),
     "doesnHaveAnAccountRegister": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account? Register",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "Error: This email has already been registered.",
+    ),
+    "enter": MessageLookupByLibrary.simpleMessage("Enter"),
+    "haveAnAccount": MessageLookupByLibrary.simpleMessage(
+      "Already have an account?",
     ),
     "homePage": MessageLookupByLibrary.simpleMessage("Home page"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
@@ -44,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection. Please check your network and try again.",
     ),
+    "or": MessageLookupByLibrary.simpleMessage("or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordRequiresLettersAndNumbers": MessageLookupByLibrary.simpleMessage(
       "Password must have at least 8 characters and contain letters and numbers.",
@@ -53,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts loaded."),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "registerEmailPassword": MessageLookupByLibrary.simpleMessage(
+      "Register with email and password",
+    ),
     "registerFailed": MessageLookupByLibrary.simpleMessage(
       "Registration failed. Please try again.",
     ),
@@ -63,6 +74,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "serverError": MessageLookupByLibrary.simpleMessage(
       "A server error occurred. Please try again later.",
     ),
+    "signInGoogleAccount": MessageLookupByLibrary.simpleMessage(
+      "Sign in with Google account",
+    ),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong. Please try again.",
     ),
@@ -70,5 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Too many requests. Please wait a moment and try again.",
     ),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome!"),
+    "welcomeTo": MessageLookupByLibrary.simpleMessage(
+      "Welcome to Reino Church!",
+    ),
   };
 }
