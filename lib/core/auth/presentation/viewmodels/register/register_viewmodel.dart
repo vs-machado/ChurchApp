@@ -7,7 +7,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:church_app/core/auth/util/auth_error.dart';
 import 'package:church_app/core/domain/util/network_error.dart';
 
-
 class RegisterViewModel extends StateNotifier<RegisterState> {
   final AuthService _authService;
 
@@ -24,7 +23,7 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
     }
 
     try {
-      await _authService.signUpWithEmailPassword(email, password);
+      await _authService.signUpWithEmailPassword(email.toLowerCase(), password);
       state = const RegisterSuccess();
     } on SocketException catch (_) {
       state = RegisterError(NetworkError.noInternetConnection);
@@ -33,8 +32,7 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
     } on AuthException catch (e) {
       if (e.statusCode == '500') {
         state = RegisterError(NetworkError.serverError);
-      }
-      if (e.statusCode == '429') {
+      } else if (e.statusCode == '429') {
         state = RegisterError(NetworkError.tooManyRequests);
       } else {
         state = RegisterError(AuthError.registerFailed);
