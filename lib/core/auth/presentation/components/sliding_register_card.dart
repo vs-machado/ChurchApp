@@ -30,12 +30,12 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
-  bool _showValidationErrors = false;
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
   bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
   bool _confirmPasswordHasFocus = false;
+  AuthError? _currentValidationError;
 
   @override
   void initState() {
@@ -69,22 +69,6 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
     setState(() {
       _confirmPasswordHasFocus = _confirmPasswordFocusNode.hasFocus;
     });
-  }
-
-  AuthError? _validateInputs() {
-    if (_showValidationErrors && !_emailController.text.isValidEmail()) {
-      return AuthError.invalidEmail;
-    }
-    if (_showValidationErrors &&
-        _passwordController.text != _confirmPasswordController.text) {
-      return AuthError.passwordsAreNotTheSame;
-    }
-    if (_showValidationErrors &&
-        _emailController.text.isValidEmail() &&
-        !_passwordController.text.isValidPassword()) {
-      return AuthError.passwordRequiresLettersAndNumbers;
-    }
-    return null;
   }
 
   @override
@@ -278,13 +262,14 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                         const SizedBox(height: 24.0),
                         Builder(
                           builder: (context) {
-                            final error = _validateInputs();
-                            if (error != null) {
+                            if (_currentValidationError != null) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    error.toErrorString(context),
+                                    _currentValidationError!.toErrorString(
+                                      context,
+                                    ),
                                     style: const TextStyle(
                                       color: Colors.red,
                                       fontSize: 12,
@@ -302,27 +287,35 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                               state is RegisterLoading
                                   ? null
                                   : () {
-                                    // Exibe mensagem de erro caso a senha não atenda aos requisitos
-                                    setState(() {
-                                      _showValidationErrors = true;
-                                    });
-
                                     final email = _emailController.text;
                                     final password = _passwordController.text;
                                     final confirmPassword =
                                         _confirmPasswordController.text;
 
-                                    // Valida o tamanho mínimo da senha e os caracteres exigidos
-                                    if (!email.isValidEmail() ||
-                                        !password.isValidPassword()) {
-                                      return;
+                                    AuthError? errorToShow;
+
+                                    if (!email.isValidEmail()) {
+                                      errorToShow = AuthError.invalidEmail;
+                                    } else if (password != confirmPassword) {
+                                      errorToShow =
+                                          AuthError.passwordsAreNotTheSame;
+                                    } else if (!password.isValidPassword()) {
+                                      errorToShow =
+                                          AuthError
+                                              .passwordRequiresLettersAndNumbers;
                                     }
 
-                                    viewModel.signUp(
-                                      email,
-                                      password,
-                                      confirmPassword,
-                                    );
+                                    setState(() {
+                                      _currentValidationError = errorToShow;
+                                    });
+
+                                    if (errorToShow == null) {
+                                      viewModel.signUp(
+                                        email,
+                                        password,
+                                        confirmPassword,
+                                      );
+                                    }
                                   },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
