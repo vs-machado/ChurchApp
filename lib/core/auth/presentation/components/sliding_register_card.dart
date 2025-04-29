@@ -27,11 +27,13 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
   bool _showValidationErrors = false;
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
+  bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
   bool _confirmPasswordHasFocus = false;
 
@@ -46,8 +48,15 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
       CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
     );
     _animationController.forward();
+    _emailFocusNode.addListener(_onEmailFocusChange);
     _passwordFocusNode.addListener(_onPasswordFocusChange);
     _confirmPasswordFocusNode.addListener(_onConfirmPasswordFocusChange);
+  }
+
+  void _onEmailFocusChange() {
+    setState(() {
+      _emailHasFocus = _emailFocusNode.hasFocus;
+    });
   }
 
   void _onPasswordFocusChange() {
@@ -83,8 +92,10 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _emailFocusNode.removeListener(_onEmailFocusChange);
     _passwordFocusNode.removeListener(_onPasswordFocusChange);
     _confirmPasswordFocusNode.removeListener(_onConfirmPasswordFocusChange);
+    _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
     _animationController.dispose();
@@ -142,13 +153,13 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
             },
             child: Container(
               padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0),
                 ),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 10.0,
@@ -168,16 +179,16 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                           size: 20.0,
                         ),
                         onPressed: _closeCard,
-                        padding: EdgeInsets.zero,
+                        padding: const EdgeInsets.all(0.0),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.only(right: 42.0),
+                            padding: const EdgeInsets.only(right: 42.0),
                             // Offset for the icon button width
                             child: Text(
                               'Crie sua conta',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -196,12 +207,14 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                           controller: _emailController,
                           decoration: InputDecoration(
                             labelText: S.of(context).email,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                            prefixIcon: Icon(
+                              _emailHasFocus
+                                  ? Icons.email
+                                  : Icons.email_outlined,
                             ),
-                            prefixIcon: const Icon(Icons.email_outlined),
                           ),
                           keyboardType: TextInputType.emailAddress,
+                          focusNode: _emailFocusNode,
                         ),
                         const SizedBox(height: 16.0),
                         TextFormField(
@@ -209,10 +222,11 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                           focusNode: _passwordFocusNode,
                           decoration: InputDecoration(
                             labelText: S.of(context).password,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                            prefixIcon: Icon(
+                              _passwordHasFocus
+                                  ? Icons.lock
+                                  : Icons.lock_outline,
                             ),
-                            prefixIcon: const Icon(Icons.lock_outline),
                             suffixIcon:
                                 _passwordHasFocus
                                     ? IconButton(
@@ -237,10 +251,11 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                           focusNode: _confirmPasswordFocusNode,
                           decoration: InputDecoration(
                             labelText: S.of(context).confirmPassword,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                            prefixIcon: Icon(
+                              _confirmPasswordHasFocus
+                                  ? Icons.lock
+                                  : Icons.lock_outline,
                             ),
-                            prefixIcon: const Icon(Icons.lock_outline),
                             suffixIcon:
                                 _confirmPasswordHasFocus
                                     ? IconButton(
@@ -270,7 +285,7 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                                 children: [
                                   Text(
                                     error.toErrorString(context),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.red,
                                       fontSize: 12,
                                     ),
@@ -322,7 +337,7 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                                   ? const CircularProgressIndicator(
                                     color: Colors.white,
                                   )
-                                  : Text(
+                                  : const Text(
                                     'Registrar',
                                     style: TextStyle(
                                       fontSize: 16.0,

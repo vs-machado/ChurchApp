@@ -24,6 +24,24 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Colors.black, width: 2.0),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 12.0,
+            horizontal: 10.0,
+          ),
+          labelStyle: const TextStyle(color: Colors.black),
+        ),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.black,
+          selectionHandleColor: Colors.black,
+        ),
+      ),
       localizationsDelegates: [
         S.delegate,
         AppLocalizations.delegate,
