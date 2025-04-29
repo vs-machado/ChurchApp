@@ -30,6 +30,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Don\'t have an account? Register",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
+      "Error: This email has already been registered.",
+    ),
     "homePage": MessageLookupByLibrary.simpleMessage("Home page"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Incorrect email or password. Please check your credentials and try again.",

@@ -20,5 +20,6 @@
   "somethingWentWrong": "Something went wrong. Please try again.",
   "serverError": "A server error occurred. Please try again later.",
   "passwordsAreNotTheSame": "Passwords do not match. Please try again.",
-  "incorrectPassword": "Incorrect email or password. Please check your credentials and try again."
+  "incorrectPassword": "Incorrect email or password. Please check your credentials and try again.",
+  "emailAlreadyInUse": "Error: This email has already been registered."
 }

@@ -234,6 +234,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Error: This email has already been registered.`
+  String get emailAlreadyInUse {
+    return Intl.message(
+      'Error: This email has already been registered.',
+      name: 'emailAlreadyInUse',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

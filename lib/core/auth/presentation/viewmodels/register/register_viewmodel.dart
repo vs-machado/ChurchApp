@@ -30,7 +30,10 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
     } on AuthRetryableFetchException catch (_) {
       state = RegisterError(NetworkError.requestTimeout);
     } on AuthException catch (e) {
-      if (e.statusCode == '500') {
+      if (e.message.toLowerCase().contains('user already registered') ||
+          e.message.toLowerCase().contains('email address already exists')) {
+        state = RegisterError(AuthError.emailAlreadyInUse);
+      } else if (e.statusCode == '500') {
         state = RegisterError(NetworkError.serverError);
       } else if (e.statusCode == '429') {
         state = RegisterError(NetworkError.tooManyRequests);

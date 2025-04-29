@@ -103,7 +103,9 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
 
         switch (error) {
           case AuthError():
-            {} // AuthError é exibido como um Text na UI.
+            setState(() {
+              _currentValidationError = error;
+            });
           case NetworkError():
             errorMessage = error.toErrorString(context);
           case Error():

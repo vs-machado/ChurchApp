@@ -20,5 +20,6 @@
   "requestTimeout": "A conexão expirou. Por favor, tente novamente.",
   "tooManyRequests": "Demasiados pedidos. Por favor, aguarde um momento e tente novamente.",
   "serverError": "Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.",
-  "incorrectPassword": "Email ou senha incorretos. Corrija e tente novamente."
+  "incorrectPassword": "Email ou senha incorretos. Corrija e tente novamente.",
+  "emailAlreadyInUse": "Erro: Este email já foi cadastrado anteriormente."
 }

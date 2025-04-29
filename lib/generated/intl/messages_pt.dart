@@ -30,6 +30,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Não possui uma conta? Cadastre-se",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
+      "Erro: Este email já foi cadastrado anteriormente.",
+    ),
     "homePage": MessageLookupByLibrary.simpleMessage("Página inicial"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Email ou senha incorretos. Corrija e tente novamente.",

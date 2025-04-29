@@ -10,6 +10,7 @@ enum AuthError implements Error {
   registerFailed,
   loginFailed,
   incorrectPassword,
+  emailAlreadyInUse,
 }
 
 extension ErrorMessage on AuthError {
@@ -22,6 +23,7 @@ extension ErrorMessage on AuthError {
       AuthError.registerFailed => S.of(context).registerFailed,
       AuthError.loginFailed => S.of(context).somethingWentWrong,
       AuthError.incorrectPassword => S.of(context).incorrectPassword,
+      AuthError.emailAlreadyInUse => S.of(context).emailAlreadyInUse,
     };
   }
 }
