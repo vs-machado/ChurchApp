@@ -9,13 +9,13 @@ import 'package:riverpod/riverpod.dart';
 final authServiceProvider = Provider<AuthService>((ref) => AuthServiceImpl());
 
 final loginViewModelProvider =
-    StateNotifierProvider<LoginViewModel, LoginState>((ref) {
+    StateNotifierProvider.autoDispose<LoginViewModel, LoginState>((ref) {
       final authService = ref.watch(authServiceProvider);
       return LoginViewModel(authService: authService);
     });
 
 final registerViewModelProvider =
-    StateNotifierProvider<RegisterViewModel, RegisterState>((ref) {
+    StateNotifierProvider.autoDispose<RegisterViewModel, RegisterState>((ref) {
       final authService = ref.watch(authServiceProvider);
       return RegisterViewModel(authService: authService);
     });

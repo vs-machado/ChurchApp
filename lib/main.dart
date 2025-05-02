@@ -10,13 +10,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'generated/l10n.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
 
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
-  runApp(ProviderScope(child: MainApp()));
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -24,35 +25,38 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const inputDecorationTheme = InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        borderSide: BorderSide(color: Colors.black, width: 2.0),
+      ),
+      contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0),
+      labelStyle: TextStyle(color: Colors.black),
+    );
+
+    const textSelectionTheme = TextSelectionThemeData(
+      cursorColor: Colors.black,
+      selectionHandleColor: Colors.black,
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: Colors.black, width: 2.0),
-          ),
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 12.0,
-            horizontal: 10.0,
-          ),
-          labelStyle: const TextStyle(color: Colors.black),
-        ),
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: Colors.black,
-          selectionHandleColor: Colors.black,
-        ),
+        inputDecorationTheme: inputDecorationTheme,
+        textSelectionTheme: textSelectionTheme,
       ),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         S.delegate,
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [Locale('pt', 'BR')],
-      home: AuthGate(),
+      supportedLocales: const [Locale('pt', 'BR')],
+      home: const AuthGate(),
     );
   }
 }

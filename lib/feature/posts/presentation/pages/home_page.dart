@@ -10,7 +10,6 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(homeViewModelProvider.notifier);
     final state = ref.watch(homeViewModelProvider);
 
     ref.listen(homeViewModelProvider, (previous, current) {
@@ -26,7 +25,7 @@ class HomePage extends ConsumerWidget {
         title: Text(S.of(context).homePage),
         actions: [
           IconButton(
-            onPressed: viewModel.logout,
+            onPressed: () => ref.read(homeViewModelProvider.notifier).logout(),
             icon: const Icon(Icons.logout),
           ),
         ],

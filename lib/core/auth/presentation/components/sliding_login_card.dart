@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:church_app/core/di/providers.dart';
 import 'package:church_app/core/auth/domain/validators.dart';
-import 'package:church_app/core/auth/presentation/viewmodels/login/login_state.dart'; // Changed import
+import 'package:church_app/core/auth/presentation/viewmodels/login/login_state.dart';
 import 'package:church_app/core/auth/util/auth_error.dart';
 import 'package:church_app/core/domain/util/network_error.dart';
 import 'package:church_app/generated/l10n.dart' show S;
@@ -33,7 +33,7 @@ class _SlidingLoginCardState extends ConsumerState<SlidingLoginCard>
   bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
 
-  AuthError? _currentValidationError; // Keep for potential AuthErrors on login
+  AuthError? _currentValidationError;
 
   @override
   void initState() {
@@ -81,8 +81,8 @@ class _SlidingLoginCardState extends ConsumerState<SlidingLoginCard>
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = ref.watch(loginViewModelProvider.notifier);
     final state = ref.watch(loginViewModelProvider);
+    final viewModel = ref.read(loginViewModelProvider.notifier);
 
     ref.listen(loginViewModelProvider, (previous, current) {
       if (current is LoginError) {

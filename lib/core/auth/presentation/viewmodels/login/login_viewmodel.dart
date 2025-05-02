@@ -27,8 +27,7 @@ class LoginViewModel extends StateNotifier<LoginState> {
     } on AuthException catch (e) {
       if (e.statusCode == '500') {
         state = LoginError(NetworkError.serverError);
-      }
-      if (e.statusCode == '429') {
+      } else if (e.statusCode == '429') {
         state = LoginError(NetworkError.tooManyRequests);
       } else if (e.message.toLowerCase().contains(
             'invalid login credentials',

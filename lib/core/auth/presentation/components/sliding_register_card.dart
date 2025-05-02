@@ -27,11 +27,13 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
+
   bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
   bool _confirmPasswordHasFocus = false;
