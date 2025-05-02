@@ -1,10 +1,15 @@
 import 'package:church_app/core/auth/presentation/components/sliding_login_card.dart';
+import 'package:church_app/core/di/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../domain/util/network_error.dart';
+import '../../util/auth_error.dart';
 import '../components/sliding_register_card.dart';
 import 'package:church_app/generated/l10n.dart' show S;
+
+import '../viewmodels/google_sign_in/google_sign_in_state.dart';
 
 class RegisterPage2 extends ConsumerStatefulWidget {
   const RegisterPage2({super.key});
@@ -19,12 +24,37 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = ref.watch(googleSignInViewModelProvider.notifier);
+    final state = ref.watch(googleSignInViewModelProvider);
+
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
     );
+
+    ref.listen(googleSignInViewModelProvider, (previous, current) {
+      if (current is SignInError) {
+        final error = current.error;
+        String? errorMessage;
+
+        switch (error) {
+          case AuthError():
+            {}
+          case NetworkError():
+            errorMessage = error.toErrorString(context);
+          case Error():
+            errorMessage = S.of(context).somethingWentWrong;
+        }
+
+        if (errorMessage != null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(errorMessage)));
+        }
+      }
+    });
 
     return SafeArea(
       child: Scaffold(
@@ -66,9 +96,12 @@ class _RegisterPage2State extends ConsumerState<RegisterPage2> {
                       const SizedBox(height: 16.0),
 
                       ElevatedButton(
-                        onPressed: () {
-                          // Implementar google sign-in/sign-up
-                        },
+                        onPressed:
+                            state is SignInLoading
+                                ? null
+                                : () {
+                                  viewModel.signInWithGoogle();
+                                },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black87,

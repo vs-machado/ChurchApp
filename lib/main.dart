@@ -1,5 +1,4 @@
 import 'package:church_app/core/auth/presentation/auth_gate.dart';
-import 'package:church_app/core/auth/presentation/pages/register_page_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
