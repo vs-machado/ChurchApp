@@ -1,14 +1,25 @@
 name: church_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
   sdk: ^3.7.2
 
 dependencies:
+  dio: ^5.8.0+1
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.2.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^1.1.5
+  intl: ^0.19.0
+  riverpod: ^2.6.1
+  flutter_riverpod: ^2.6.1
+  supabase_flutter: ^2.9.0
+  intl_utils: ^2.8.10
+  google_sign_in: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -16,4 +27,10 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
+  generate: true
   uses-material-design: true
+  assets:
+    - lib/core/assets/icons/google_logo.svg
+    - .env
+flutter_intl:
+  enabled: true
