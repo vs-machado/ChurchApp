@@ -1,4 +1,5 @@
 import 'package:church_app/core/auth/domain/auth_service.dart';
+import 'package:church_app/core/auth/presentation/viewmodels/google_sign_in/google_sign_in_viewmodel.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/login/login_state.dart';
 import 'package:church_app/core/auth/util/auth_error.dart';
 import 'package:riverpod/riverpod.dart';
@@ -7,6 +8,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../domain/util/network_error.dart';
 
+/// Realiza o login com email e senha.
+///
+/// Atualmente utiliza o sistema de login com email e senha do Supabase.
+/// Para login com Google Auth, ver [GoogleSignInViewModel].
 class LoginViewModel extends StateNotifier<LoginState> {
   final AuthService _authService;
 
@@ -14,6 +19,7 @@ class LoginViewModel extends StateNotifier<LoginState> {
     : _authService = authService,
       super(LoginInitial());
 
+  /// Efetua o login do usuário ou exibe mensagem de erro caso o login falhe.
   void login(String email, String password) async {
     state = LoginLoading();
 

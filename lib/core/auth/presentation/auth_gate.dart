@@ -1,10 +1,9 @@
-import 'package:church_app/core/auth/presentation/pages/login_page.dart';
 import 'package:church_app/core/auth/presentation/pages/register_page_2.dart';
 import 'package:church_app/feature/posts/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// GATE de autenticação. Caso o usuário não esteja autenticado, ele será redirecionado para a tela de login.
+/// Redireciona o usuário para a tela de login ou cadastro caso não esteja logado.
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 

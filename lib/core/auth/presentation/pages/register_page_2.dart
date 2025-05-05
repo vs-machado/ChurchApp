@@ -11,6 +11,11 @@ import 'package:church_app/generated/l10n.dart' show S;
 
 import '../viewmodels/google_sign_in/google_sign_in_state.dart';
 
+/// Permite que o usuário faça login ou se cadastre no app.
+///
+/// Clicar no botão de cadastro com email e senha exibe [SlidingRegisterCard].
+/// Clicar no inkwell Entrar exibe [SlidingLoginCard].
+/// Opções implementadas: Google Auth, cadastro com email e senha e login com email e senha.
 class RegisterPage2 extends ConsumerStatefulWidget {
   const RegisterPage2({super.key});
 

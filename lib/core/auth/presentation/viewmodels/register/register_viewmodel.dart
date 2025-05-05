@@ -1,12 +1,17 @@
 import 'dart:io';
 
 import 'package:church_app/core/auth/domain/auth_service.dart';
+import 'package:church_app/core/auth/presentation/viewmodels/google_sign_in/google_sign_in_viewmodel.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:church_app/core/auth/util/auth_error.dart';
 import 'package:church_app/core/domain/util/network_error.dart';
 
+/// Realiza o cadastramento do usuário com email e senha.
+///
+/// Atualmente utiliza o sistema de cadastramento com email e senha do Supabase.
+/// Para cadastro com Google Auth, ver [GoogleSignInViewModel].
 class RegisterViewModel extends StateNotifier<RegisterState> {
   final AuthService _authService;
 
@@ -14,6 +19,7 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
     : _authService = authService,
       super(const RegisterInitial());
 
+  /// Realiza o cadastramento do usuário ou exibe mensagem de erro.
   void signUp(String email, String password, String confirmPassword) async {
     state = const RegisterLoading();
 

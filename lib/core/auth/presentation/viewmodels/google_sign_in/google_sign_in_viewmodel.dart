@@ -7,6 +7,7 @@ import '../../../../domain/util/network_error.dart';
 import '../../../domain/auth_service.dart';
 import 'google_sign_in_state.dart';
 
+/// Realiza o sign in com Google Auth. Pode ser utilizado para cadastro e login.
 class GoogleSignInViewModel extends StateNotifier<GoogleSignInState> {
   final AuthService _authService;
 
@@ -14,6 +15,7 @@ class GoogleSignInViewModel extends StateNotifier<GoogleSignInState> {
     : _authService = authService,
       super(const SignInInitial());
 
+  /// Realiza o cadastro ou login do usuário, a depender se é o primeiro acesso ou não.
   void signInWithGoogle() async {
     state = const SignInLoading();
 

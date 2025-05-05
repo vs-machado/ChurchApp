@@ -7,10 +7,18 @@ import 'package:church_app/core/auth/util/auth_error.dart';
 import 'package:church_app/core/domain/util/network_error.dart';
 import 'package:church_app/generated/l10n.dart' show S;
 
+/// Tela de login do app.
+/// Exibe dois text inputs: email e senha.
+/// Caso o usuário faça login com sucesso: redireciona para a HomePage.
+/// Caso o login falhe: exibe mensagem de erro através de um Text ou Snackbar.
+/// Texts são utilizados para exibir erros de validação ou autenticação.
+/// Ver: [AuthError] e [EmailValidators].
+/// Snackbars exibem erros de internet.
+/// Ver: [NetworkError].
 class SlidingLoginCard extends ConsumerStatefulWidget {
   final Function onClose;
 
-  const SlidingLoginCard({Key? key, required this.onClose}) : super(key: key);
+  const SlidingLoginCard({super.key, required this.onClose});
 
   @override
   ConsumerState<SlidingLoginCard> createState() => _SlidingLoginCardState();
@@ -33,6 +41,7 @@ class _SlidingLoginCardState extends ConsumerState<SlidingLoginCard>
   bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
 
+  // Utilizado para exibir mensagem de erro de autenticação ou validação de emails e senhas
   AuthError? _currentValidationError;
 
   @override
@@ -50,12 +59,15 @@ class _SlidingLoginCardState extends ConsumerState<SlidingLoginCard>
     _passwordFocusNode.addListener(_onPasswordFocusChange);
   }
 
+  // Utilizado para alternar ícone entre outlined e filled
   void _onEmailFocusChange() {
     setState(() {
       _emailHasFocus = _emailFocusNode.hasFocus;
     });
   }
 
+  // Alterna ícone entre outlined e filled, e
+  // exibe ícone que torna a senha vísivel ou invisível quando clicado
   void _onPasswordFocusChange() {
     setState(() {
       _passwordHasFocus = _passwordFocusNode.hasFocus;
