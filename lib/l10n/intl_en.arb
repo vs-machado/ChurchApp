@@ -29,5 +29,7 @@
   "createYourAccount": "Create your account",
   "or": "or",
   "haveAnAccount": "Already have an account?",
-  "thePasswordFieldCantBeEmpty": "The password field cannot be empty"
+  "thePasswordFieldCantBeEmpty": "The password field cannot be empty",
+  "nameFieldCantBeEmpty": "The name field can't be empty.",
+  "fullName": "Full name"
 }

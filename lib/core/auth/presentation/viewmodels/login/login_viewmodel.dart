@@ -13,9 +13,9 @@ import '../../../../domain/util/network_error.dart';
 /// Atualmente utiliza o sistema de login com email e senha do Supabase.
 /// Para login com Google Auth, ver [GoogleSignInViewModel].
 class LoginViewModel extends StateNotifier<LoginState> {
-  final AuthService _authService;
+  final AuthService<AuthResponse> _authService;
 
-  LoginViewModel({required AuthService authService})
+  LoginViewModel({required AuthService<AuthResponse> authService})
     : _authService = authService,
       super(LoginInitial());
 

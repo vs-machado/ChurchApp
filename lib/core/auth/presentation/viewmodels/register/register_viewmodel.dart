@@ -13,14 +13,19 @@ import 'package:church_app/core/domain/util/network_error.dart';
 /// Atualmente utiliza o sistema de cadastramento com email e senha do Supabase.
 /// Para cadastro com Google Auth, ver [GoogleSignInViewModel].
 class RegisterViewModel extends StateNotifier<RegisterState> {
-  final AuthService _authService;
+  final AuthService<AuthResponse> _authService;
 
-  RegisterViewModel({required AuthService authService})
+  RegisterViewModel({required AuthService<AuthResponse> authService})
     : _authService = authService,
       super(const RegisterInitial());
 
   /// Realiza o cadastramento do usuário ou exibe mensagem de erro.
-  void signUp(String email, String password, String confirmPassword) async {
+  void signUp(
+    String email,
+    String password,
+    String confirmPassword,
+    String fullName,
+  ) async {
     state = const RegisterLoading();
 
     if (password != confirmPassword) {
@@ -30,6 +35,10 @@ class RegisterViewModel extends StateNotifier<RegisterState> {
 
     try {
       await _authService.signUpWithEmailPassword(email.toLowerCase(), password);
+
+      // Atualiza o nome do usuário na tabela users
+      await _authService.updateUserProfile(data: {'name': fullName});
+
       state = const RegisterSuccess();
     } on SocketException catch (_) {
       state = RegisterError(NetworkError.noInternetConnection);

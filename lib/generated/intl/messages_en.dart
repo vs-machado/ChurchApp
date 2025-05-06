@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Error: This email has already been registered.",
     ),
     "enter": MessageLookupByLibrary.simpleMessage("Enter"),
+    "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
     "haveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
@@ -48,6 +49,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Enter a valid email.",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "nameFieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
+      "The name field can\'t be empty.",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection. Please check your network and try again.",
     ),

@@ -314,6 +314,21 @@ class S {
       args: [],
     );
   }
+
+  /// `The name field can't be empty.`
+  String get nameFieldCantBeEmpty {
+    return Intl.message(
+      'The name field can\'t be empty.',
+      name: 'nameFieldCantBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get fullName {
+    return Intl.message('Full name', name: 'fullName', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

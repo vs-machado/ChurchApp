@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Erro: Este email já foi cadastrado anteriormente.",
     ),
     "enter": MessageLookupByLibrary.simpleMessage("Entrar"),
+    "fullName": MessageLookupByLibrary.simpleMessage("Nome completo"),
     "haveAnAccount": MessageLookupByLibrary.simpleMessage("Possui uma conta?"),
     "homePage": MessageLookupByLibrary.simpleMessage("Página inicial"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
@@ -44,6 +45,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Insira um email válido.",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "nameFieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
+      "O campo nome não pode estar vazio.",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Erro: sem conexão com a internet.",
     ),

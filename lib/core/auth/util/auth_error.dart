@@ -12,6 +12,7 @@ enum AuthError implements Error {
   incorrectPassword,
   emailAlreadyInUse,
   emptyPassword,
+  emptyName,
 }
 
 extension ErrorMessage on AuthError {
@@ -26,6 +27,7 @@ extension ErrorMessage on AuthError {
       AuthError.incorrectPassword => S.of(context).incorrectPassword,
       AuthError.emailAlreadyInUse => S.of(context).emailAlreadyInUse,
       AuthError.emptyPassword => S.of(context).thePasswordFieldCantBeEmpty,
+      AuthError.emptyName => S.of(context).nameFieldCantBeEmpty,
     };
   }
 }
