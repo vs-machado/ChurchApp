@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enter": MessageLookupByLibrary.simpleMessage("Enter"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
     "haveAnAccount": MessageLookupByLibrary.simpleMessage(
-      "Already have an account?",
+      "Already have an account? ",
     ),
     "homePage": MessageLookupByLibrary.simpleMessage("Home page"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(

@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enter": MessageLookupByLibrary.simpleMessage("Entrar"),
     "fullName": MessageLookupByLibrary.simpleMessage("Nome completo"),
-    "haveAnAccount": MessageLookupByLibrary.simpleMessage("Possui uma conta?"),
+    "haveAnAccount": MessageLookupByLibrary.simpleMessage("Possui uma conta? "),
     "homePage": MessageLookupByLibrary.simpleMessage("Página inicial"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Email ou senha incorretos. Corrija e tente novamente.",

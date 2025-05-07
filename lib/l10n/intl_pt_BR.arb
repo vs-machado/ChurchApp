@@ -28,7 +28,7 @@
   "enter": "Entrar",
   "createYourAccount": "Crie sua conta",
   "or": "ou",
-  "haveAnAccount": "Possui uma conta?",
+  "haveAnAccount": "Possui uma conta? ",
   "thePasswordFieldCantBeEmpty": "O campo senha não pode estar vazio",
   "nameFieldCantBeEmpty": "O campo nome não pode estar vazio.",
   "fullName": "Nome completo"

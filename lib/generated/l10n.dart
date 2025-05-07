@@ -295,10 +295,10 @@ class S {
     return Intl.message('or', name: 'or', desc: '', args: []);
   }
 
-  /// `Already have an account?`
+  /// `Already have an account? `
   String get haveAnAccount {
     return Intl.message(
-      'Already have an account?',
+      'Already have an account? ',
       name: 'haveAnAccount',
       desc: '',
       args: [],
