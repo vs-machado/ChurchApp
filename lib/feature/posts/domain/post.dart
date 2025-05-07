@@ -3,10 +3,10 @@ import 'package:uuid/uuid.dart';
 /// Representa uma postagem na camada de domínio da aplicação
 class Post {
   /// Identificador único da postagem.
-  final Uuid id;
+  final int id;
 
   /// Identificador único do usuário.
-  final String userId;
+  final UuidValue userId;
 
   /// Data de criação da postagem.
   final DateTime createdAt;
