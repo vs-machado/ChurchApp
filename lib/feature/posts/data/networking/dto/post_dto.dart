@@ -1,23 +1,23 @@
-/// Recebe os dados dos posts do banco de dados
+/// Recebe os dados de uma postagem do banco de dados
 class PostDto {
-  /// Identificador único do post.
+  /// Identificador único da postagem.
   final String id;
 
   /// Identificador único do usuário.
   final String userId;
 
-  /// Data de criação do post.
+  /// Data de criação da postagem.
   final String createdAt;
 
-  /// Data de edição do post.
+  /// Data de edição da postagem.
   final String? editedAt;
 
-  /// Conteúdo do post.
+  /// Conteúdo da postagem.
   final String text;
   final String? photoUrl;
   final String? videoUrl;
 
-  /// Quantidade de likes do post.
+  /// Quantidade de likes da postagem.
   final int likesCount;
 
   PostDto({
