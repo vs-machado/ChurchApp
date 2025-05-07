@@ -43,4 +43,17 @@ class PostDto {
       likesCount: json['likes_count'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'user_id': userId,
+      'created_at': createdAt,
+      'edited_at': editedAt,
+      'text': text,
+      'photo_url': photoUrl,
+      'video_url': videoUrl,
+      'likes_count': likesCount,
+    };
+  }
 }
