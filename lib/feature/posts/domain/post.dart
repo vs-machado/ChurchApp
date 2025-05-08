@@ -8,6 +8,12 @@ class Post {
   /// Identificador único do usuário.
   final UuidValue userId;
 
+  /// Nome do usuário.
+  final String userName;
+
+  /// URL do avatar do usuário.
+  final String? userAvatarUrl;
+
   /// Data de criação da postagem.
   final DateTime createdAt;
 
@@ -29,6 +35,8 @@ class Post {
   Post({
     required this.id,
     required this.userId,
+    required this.userName,
+    this.userAvatarUrl,
     required this.createdAt,
     this.editedAt,
     required this.text,

@@ -6,6 +6,12 @@ class PostDto {
   /// Identificador único do usuário.
   final String userId;
 
+  /// Nome do usuário.
+  final String userName;
+
+  /// Url do avatar do usuário.
+  final String? userAvatarUrl;
+
   /// Data de criação da postagem.
   final String createdAt;
 
@@ -23,6 +29,8 @@ class PostDto {
   PostDto({
     required this.id,
     required this.userId,
+    required this.userName,
+    this.userAvatarUrl,
     required this.createdAt,
     this.editedAt,
     required this.text,
@@ -35,6 +43,8 @@ class PostDto {
     return PostDto(
       id: json['id'],
       userId: json['user_id'],
+      userName: json['user_name'],
+      userAvatarUrl: json['user_avatar_url'],
       createdAt: json['created_at'],
       editedAt: json['edited_at'],
       text: json['text'],
@@ -48,6 +58,8 @@ class PostDto {
     return {
       'id': id,
       'user_id': userId,
+      'user_name': userName,
+      'user_avatar_url': userAvatarUrl,
       'created_at': createdAt,
       'edited_at': editedAt,
       'text': text,

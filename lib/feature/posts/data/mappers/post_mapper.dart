@@ -10,6 +10,8 @@ class PostMapper {
     return Post(
       id: int.parse(dto.id),
       userId: UuidValue.fromString(dto.userId),
+      userName: dto.userName,
+      userAvatarUrl: dto.userAvatarUrl,
       createdAt: DateTime.parse(dto.createdAt),
       editedAt: dto.editedAt != null ? DateTime.parse(dto.editedAt!) : null,
       text: dto.text,
@@ -24,6 +26,8 @@ class PostMapper {
     return PostDto(
       id: post.id.toString(),
       userId: post.userId.toString(),
+      userName: post.userName,
+      userAvatarUrl: post.userAvatarUrl,
       createdAt: post.createdAt.toIso8601String(),
       editedAt: post.editedAt?.toIso8601String(),
       text: post.text,
