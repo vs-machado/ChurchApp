@@ -21,6 +21,7 @@ dependencies:
   intl_utils: ^2.8.10
   google_sign_in: ^6.3.0
   uuid: ^4.5.1
+  flutter_lorem: ^2.0.0
 
 dev_dependencies:
   flutter_test:
