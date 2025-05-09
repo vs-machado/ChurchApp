@@ -33,6 +33,7 @@ flutter:
   uses-material-design: true
   assets:
     - lib/core/assets/icons/google_logo.svg
+    - lib/core/assets/images/
     - .env
 flutter_intl:
   enabled: true

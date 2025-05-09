@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../generated/l10n.dart';
+import '../components/post_item.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -35,10 +36,35 @@ class HomePage extends ConsumerWidget {
   }
 
   Widget _buildBody(HomeState state, BuildContext context) {
+    final samplePosts = List.generate(
+      5,
+      (index) => {
+        'avatarUrl': null,
+        'imageUrl': 'https://picsum.photos/seed/${index + 1}/400/300',
+        'username': 'User ${index + 1}',
+        'timeAgo': ' ${index + 1}h ago',
+        'postText':
+            'This is sample post number ${index + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+    );
+
     return switch (state) {
       HomeInitial() => Center(child: Text(S.of(context).welcome)),
       HomeLoading() => const Center(child: CircularProgressIndicator()),
-      HomeSuccess() => Center(child: Text(S.of(context).postsLoaded)),
+      HomeSuccess() => ListView.builder(
+        padding: const EdgeInsets.all(8.0),
+        itemCount: samplePosts.length,
+        itemBuilder: (context, index) {
+          final post = samplePosts[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: PostItem(
+              avatarUrl: post['avatarUrl'],
+              imageUrl: post['imageUrl'],
+            ),
+          );
+        },
+      ),
       HomeError() => Center(child: Text(S.of(context).anErrorOccurred)),
     };
   }

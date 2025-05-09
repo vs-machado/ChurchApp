@@ -7,7 +7,9 @@ class HomeViewModel extends StateNotifier<HomeState> {
 
   HomeViewModel({required AuthService authService})
     : _authService = authService,
-      super(HomeInitial());
+      super(
+        HomeSuccess(),
+      ); // TODO: substituir por HomeInitial e realizar o fetching dos posts
 
   void logout() {
     _authService.signOut();
