@@ -51,8 +51,7 @@ class HomePage extends ConsumerWidget {
     return switch (state) {
       HomeInitial() => Center(child: Text(S.of(context).welcome)),
       HomeLoading() => const Center(child: CircularProgressIndicator()),
-      HomeSuccess() => ListView.builder(
-        padding: const EdgeInsets.all(8.0),
+      HomeSuccess() => ListView.separated(
         itemCount: samplePosts.length,
         itemBuilder: (context, index) {
           final post = samplePosts[index];
@@ -64,6 +63,7 @@ class HomePage extends ConsumerWidget {
             ),
           );
         },
+        separatorBuilder: (context, index) => const Divider(height: 4.0),
       ),
       HomeError() => Center(child: Text(S.of(context).anErrorOccurred)),
     };
