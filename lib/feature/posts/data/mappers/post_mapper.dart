@@ -3,37 +3,39 @@ import 'package:uuid/uuid.dart';
 import '../../domain/post.dart';
 import '../networking/dto/post_dto.dart';
 
-/// Classe responsável por mapear entre Post (domain) e PostDto (data)
-class PostMapper {
+/// Extension functions para mapear entre Post (domain) e PostDto (data)
+extension PostDtoX on PostDto {
   /// Converte um PostDto para um objeto Post do domain
-  static Post fromDto(PostDto dto) {
+  Post toPost() {
     return Post(
-      id: int.parse(dto.id),
-      userId: UuidValue.fromString(dto.userId),
-      userName: dto.userName,
-      userAvatarUrl: dto.userAvatarUrl,
-      createdAt: DateTime.parse(dto.createdAt),
-      editedAt: dto.editedAt != null ? DateTime.parse(dto.editedAt!) : null,
-      text: dto.text,
-      photoUrl: dto.photoUrl,
-      videoUrl: dto.videoUrl,
-      likesCount: dto.likesCount,
+      id: int.parse(id),
+      userId: UuidValue.fromString(userId),
+      userName: userName,
+      userAvatarUrl: userAvatarUrl,
+      createdAt: DateTime.parse(createdAt),
+      editedAt: editedAt != null ? DateTime.parse(editedAt!) : null,
+      text: text,
+      photoUrl: photoUrl,
+      videoUrl: videoUrl,
+      likesCount: likesCount,
     );
   }
+}
 
+extension PostX on Post {
   /// Converte um objeto Post do domain para um PostDto
-  static PostDto toDto(Post post) {
+  PostDto toDto() {
     return PostDto(
-      id: post.id.toString(),
-      userId: post.userId.toString(),
-      userName: post.userName,
-      userAvatarUrl: post.userAvatarUrl,
-      createdAt: post.createdAt.toIso8601String(),
-      editedAt: post.editedAt?.toIso8601String(),
-      text: post.text,
-      photoUrl: post.photoUrl,
-      videoUrl: post.videoUrl,
-      likesCount: post.likesCount,
+      id: id.toString(),
+      userId: userId.toString(),
+      userName: userName,
+      userAvatarUrl: userAvatarUrl,
+      createdAt: createdAt.toIso8601String(),
+      editedAt: editedAt?.toIso8601String(),
+      text: text,
+      photoUrl: photoUrl,
+      videoUrl: videoUrl,
+      likesCount: likesCount,
     );
   }
 }
