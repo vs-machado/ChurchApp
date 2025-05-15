@@ -4,8 +4,6 @@ import 'package:church_app/core/auth/presentation/viewmodels/login/login_state.d
 import 'package:church_app/core/auth/presentation/viewmodels/login/login_viewmodel.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_state.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_viewmodel.dart';
-import 'package:church_app/feature/posts/data/networking/remote_post_data_source.dart';
-import 'package:church_app/feature/posts/domain/post_data_source.dart';
 import 'package:riverpod/riverpod.dart';
 import '../auth/presentation/viewmodels/google_sign_in/google_sign_in_state.dart';
 import '../auth/presentation/viewmodels/google_sign_in/google_sign_in_viewmodel.dart';
@@ -18,11 +16,6 @@ final supabaseClientProvider = Provider<SupabaseClient>((ref) {
 final authServiceProvider = Provider<AuthService<AuthResponse>>((ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return AuthServiceImpl(supabaseClient: supabaseClient);
-});
-
-final postDataSourceProvider = Provider<PostDataSource>((ref) {
-  final supabaseClient = ref.watch(supabaseClientProvider);
-  return RemotePostDataSource(supabaseClient: supabaseClient);
 });
 
 final loginViewModelProvider =
