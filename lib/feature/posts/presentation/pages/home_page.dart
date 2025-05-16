@@ -21,6 +21,12 @@ class HomePage extends ConsumerWidget {
       }
     });
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (state is HomeInitial) {
+        ref.read(homeViewModelProvider.notifier).fetchPosts();
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).homePage),
@@ -36,31 +42,16 @@ class HomePage extends ConsumerWidget {
   }
 
   Widget _buildBody(HomeState state, BuildContext context) {
-    final samplePosts = List.generate(
-      5,
-      (index) => {
-        'avatarUrl': null,
-        'imageUrl': 'https://picsum.photos/seed/${index + 1}/400/300',
-        'username': 'User ${index + 1}',
-        'timeAgo': ' ${index + 1}h ago',
-        'postText':
-            'This is sample post number ${index + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      },
-    );
-
     return switch (state) {
       HomeInitial() => Center(child: Text(S.of(context).welcome)),
       HomeLoading() => const Center(child: CircularProgressIndicator()),
       HomeSuccess() => ListView.separated(
-        itemCount: samplePosts.length,
+        itemCount: state.posts.length,
         itemBuilder: (context, index) {
-          final post = samplePosts[index];
+          final post = state.posts[index];
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: PostItem(
-              avatarUrl: post['avatarUrl'],
-              imageUrl: post['imageUrl'],
-            ),
+            child: PostItem(post: post),
           );
         },
         separatorBuilder: (context, index) => const Divider(height: 4.0),

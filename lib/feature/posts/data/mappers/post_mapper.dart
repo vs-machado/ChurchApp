@@ -8,7 +8,7 @@ extension PostDtoX on PostDto {
   /// Converte um PostDto para um objeto Post do domain
   Post toPost() {
     return Post(
-      id: int.parse(id),
+      id: id,
       userId: UuidValue.fromString(userId),
       userName: userName,
       userAvatarUrl: userAvatarUrl,
@@ -26,7 +26,7 @@ extension PostX on Post {
   /// Converte um objeto Post do domain para um PostDto
   PostDto toDto() {
     return PostDto(
-      id: id.toString(),
+      id: id,
       userId: userId.toString(),
       userName: userName,
       userAvatarUrl: userAvatarUrl,

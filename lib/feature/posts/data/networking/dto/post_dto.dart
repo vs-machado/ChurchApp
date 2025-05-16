@@ -1,7 +1,7 @@
 /// Recebe os dados de uma postagem do banco de dados
 class PostDto {
   /// Identificador único da postagem.
-  final String id;
+  final int id;
 
   /// Identificador único do usuário.
   final String userId;
