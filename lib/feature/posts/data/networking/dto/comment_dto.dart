@@ -1,13 +1,19 @@
 /// Recebe os dados de um comentário de uma postagem.
 class CommentDto {
-  /// Identificador único do comentário.
-  final int id;
-
   /// Identificador único da postagem que o comentário pertence.
   final int postId;
 
+  /// Identificador único do comentário.
+  final int commentId;
+
   /// Identificador único do usuário que fez o comentário.
   final String userId;
+
+  /// Url da foto de perfil do usuário.
+  final String? avatarUrl;
+
+  /// Nome do autor do comentário.
+  final String userName;
 
   /// Conteúdo do comentário.
   final String text;
@@ -25,9 +31,11 @@ class CommentDto {
   final DateTime? editedAt;
 
   CommentDto({
-    required this.id,
     required this.postId,
+    required this.commentId,
     required this.userId,
+    this.avatarUrl,
+    required this.userName,
     required this.text,
     this.imageUrl,
     this.videoUrl,
@@ -37,9 +45,11 @@ class CommentDto {
 
   factory CommentDto.fromJson(Map<String, dynamic> json) {
     return CommentDto(
-      id: json['id'] as int,
       postId: json['post_id'] as int,
+      commentId: json['comment_id'] as int,
       userId: json['user_id'] as String,
+      avatarUrl: json['avatar_url'] as String?,
+      userName: json['user_name'] as String,
       text: json['text'] as String,
       imageUrl: json['image_url'] as String?,
       videoUrl: json['video_url'] as String?,
@@ -53,9 +63,11 @@ class CommentDto {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'post_id': postId,
+      'comment_id': commentId,
       'user_id': userId,
+      'avatar_url': avatarUrl,
+      'user_name': userName,
       'text': text,
       'image_url': imageUrl,
       'video_url': videoUrl,
