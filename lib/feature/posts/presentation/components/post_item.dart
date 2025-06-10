@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:church_app/feature/posts/presentation/models/post_ui.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends StatefulWidget {
   const PostItem({super.key, required this.post});
 
   final PostUi post;
+
+  @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
+  bool isLiked = false;
+
+  late AnimationController _likeController;
+
+  @override
+  void initState() {
+    super.initState();
+    _likeController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 100),
+    );
+  }
+
+  @override
+  void dispose() {
+    _likeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +39,10 @@ class PostItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Row(
             children: [
-              // Foto de perfil do usuário
               CircleAvatar(
                 backgroundImage:
-                    post.userAvatarUrl != null
-                        ? NetworkImage(post.userAvatarUrl!)
+                    widget.post.userAvatarUrl != null
+                        ? NetworkImage(widget.post.userAvatarUrl!)
                         : const AssetImage(
                               'lib/core/assets/images/profile_image.png',
                             )
@@ -39,12 +62,12 @@ class PostItem extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                           fontSize: 16.0,
                         ),
-                        post.userName,
+                        widget.post.userName,
                       ),
                     ),
                     Text(
                       style: const TextStyle(fontSize: 12.0),
-                      post.timeSincePosted,
+                      widget.post.timeSincePosted,
                     ),
                   ],
                 ),
@@ -68,7 +91,7 @@ class PostItem extends StatelessWidget {
                         body: SingleChildScrollView(
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            post.text,
+                            widget.post.text,
                             style: const TextStyle(color: Colors.black),
                           ),
                         ),
@@ -78,7 +101,7 @@ class PostItem extends StatelessWidget {
             },
             child: LayoutBuilder(
               builder: (context, constraints) {
-                final text = post.text;
+                final text = widget.post.text;
                 final TextSpan textSpan = TextSpan(
                   text: text,
                   style: const TextStyle(fontSize: 14.0, color: Colors.black),
@@ -142,12 +165,12 @@ class PostItem extends StatelessWidget {
         // A implementação atual será de apenas exibir uma imagem ou um vídeo.
         // Caso por alguma falha do código o usuário faça upload de uma foto e um vídeo
         // apenas o vídeo será exibido.
-        if (post.videoUrl != null) ...[
+        if (widget.post.videoUrl != null) ...[
           const Text('Video Player Placeholder'),
           const SizedBox(height: 10.0),
-        ] else if (post.photoUrl != null) ...[
+        ] else if (widget.post.photoUrl != null) ...[
           Image.network(
-            post.photoUrl!,
+            widget.post.photoUrl!,
             width: double.infinity,
             fit: BoxFit.cover,
           ),
@@ -155,16 +178,37 @@ class PostItem extends StatelessWidget {
         ],
 
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            TextButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.thumb_up_outlined),
-              label: const Text('Curtir'),
+            _buildAnimatedButton(
+              onPressed: () {
+                setState(() {
+                  isLiked = !isLiked;
+                });
+                if (isLiked) {
+                  _likeController.forward();
+                } else {
+                  _likeController.reverse();
+                }
+              },
+              icon: AnimatedBuilder(
+                animation: _likeController,
+                builder: (context, child) {
+                  return Transform.scale(
+                    scale: 1.0 + (_likeController.value * 0.4),
+                    child: Icon(
+                      isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
+                      color: isLiked ? Colors.deepPurple : null,
+                    ),
+                  );
+                },
+              ),
+              label: isLiked ? 'Descurtir' : 'Curtir',
+              isActive: isLiked,
             ),
             TextButton.icon(
               onPressed: () {},
-              icon: const Icon(Icons.comment_outlined),
+              icon: const Icon(Icons.chat_bubble_outline),
               label: const Text('Comentar'),
             ),
             TextButton.icon(
@@ -175,6 +219,22 @@ class PostItem extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildAnimatedButton({
+    required VoidCallback onPressed,
+    required Widget icon,
+    required String label,
+    required bool isActive,
+  }) {
+    return TextButton.icon(
+      onPressed: onPressed,
+      icon: icon,
+      label: Text(
+        label,
+        style: TextStyle(color: isActive ? Colors.deepPurple : null),
+      ),
     );
   }
 }

@@ -50,11 +50,11 @@ class HomePage extends ConsumerWidget {
         itemBuilder: (context, index) {
           final post = state.posts[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.only(top: 8.0),
             child: PostItem(post: post),
           );
         },
-        separatorBuilder: (context, index) => const Divider(height: 4.0),
+        separatorBuilder: (context, index) => const Divider(height: 0.0),
       ),
       HomeError() => Center(child: Text(S.of(context).anErrorOccurred)),
     };
