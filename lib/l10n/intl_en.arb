@@ -39,5 +39,7 @@
         "type": "int"
       }
     }
-  }
+  },
+  "leaveAComment": "Leave a comment",
+  "postDetails": "Post details"
 }

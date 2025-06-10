@@ -47,6 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "insertAValidEmail": MessageLookupByLibrary.simpleMessage(
       "Insira um email válido.",
     ),
+    "leaveAComment": MessageLookupByLibrary.simpleMessage(
+      "Deixe um comentário",
+    ),
     "likesCount": m0,
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "nameFieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
@@ -63,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsAreNotTheSame": MessageLookupByLibrary.simpleMessage(
       "As senhas inseridas não são iguais. Tente novamente.",
     ),
+    "postDetails": MessageLookupByLibrary.simpleMessage("Detalhes da postagem"),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts carregados."),
     "register": MessageLookupByLibrary.simpleMessage("Cadastrar"),
     "registerEmailPassword": MessageLookupByLibrary.simpleMessage(

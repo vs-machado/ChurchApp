@@ -342,6 +342,26 @@ class S {
       args: [count],
     );
   }
+
+  /// `Leave a comment`
+  String get leaveAComment {
+    return Intl.message(
+      'Leave a comment',
+      name: 'leaveAComment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Post details`
+  String get postDetails {
+    return Intl.message(
+      'Post details',
+      name: 'postDetails',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

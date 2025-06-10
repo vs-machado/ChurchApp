@@ -84,21 +84,10 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
           padding: const EdgeInsets.only(left: 8.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => Scaffold(
-                        appBar: AppBar(title: const Text('Post completo')),
-                        body: SingleChildScrollView(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            widget.post.text,
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
-                ),
+                '/postDetails',
+                arguments: widget.post,
               );
             },
             child: LayoutBuilder(
@@ -179,6 +168,7 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
           const SizedBox(height: 10.0),
         ],
 
+        // Exibe a contagem de curtidas caso alguém curta a postagem
         if (widget.post.likesCount > 0) ...{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),

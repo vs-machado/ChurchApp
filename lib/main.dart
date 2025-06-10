@@ -1,4 +1,5 @@
 import 'package:church_app/core/auth/presentation/auth_gate.dart';
+import 'package:church_app/feature/posts/presentation/pages/post_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'feature/posts/presentation/models/post_ui.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -56,6 +58,17 @@ class MainApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale('pt', 'BR')],
       home: const AuthGate(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/postDetails':
+            final PostUi post = settings.arguments as PostUi;
+            return MaterialPageRoute(
+              builder: (context) => PostDetailsPage(post: post),
+            );
+          default:
+            return null;
+        }
+      },
     );
   }
 }

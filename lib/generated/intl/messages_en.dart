@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "insertAValidEmail": MessageLookupByLibrary.simpleMessage(
       "Enter a valid email.",
     ),
+    "leaveAComment": MessageLookupByLibrary.simpleMessage("Leave a comment"),
     "likesCount": m0,
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "nameFieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
@@ -67,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsAreNotTheSame": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match. Please try again.",
     ),
+    "postDetails": MessageLookupByLibrary.simpleMessage("Post details"),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts loaded."),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "registerEmailPassword": MessageLookupByLibrary.simpleMessage(
