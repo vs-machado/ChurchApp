@@ -160,10 +160,19 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
           const Text('Video Player Placeholder'),
           const SizedBox(height: 10.0),
         ] else if (widget.post.photoUrl != null) ...[
-          Image.network(
-            widget.post.photoUrl!,
-            width: double.infinity,
-            fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                '/postDetails',
+                arguments: widget.post,
+              );
+            },
+            child: Image.network(
+              widget.post.photoUrl!,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(height: 10.0),
         ],
