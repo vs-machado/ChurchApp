@@ -1,3 +1,4 @@
+import 'package:church_app/feature/posts/presentation/components/comment_item.dart';
 import 'package:church_app/feature/posts/presentation/components/post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +27,15 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
         child: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(child: PostItem(post: widget.post)),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    PostItem(post: widget.post),
+                    const SizedBox(height: 8.0),
+                    // CommentItem(),
+                  ],
+                ),
+              ),
             ),
             Container(
               padding: const EdgeInsets.all(8.0),
