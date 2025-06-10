@@ -329,6 +329,19 @@ class S {
   String get fullName {
     return Intl.message('Full name', name: 'fullName', desc: '', args: []);
   }
+
+  /// `{count, plural, =0{} =1{count} other{{count}}}`
+  String likesCount(int count) {
+    return Intl.plural(
+      count,
+      zero: '',
+      one: 'count',
+      other: '$count',
+      name: 'likesCount',
+      desc: '',
+      args: [count],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

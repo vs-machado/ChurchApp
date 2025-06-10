@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:church_app/feature/posts/presentation/models/post_ui.dart';
 
+import '../../../../generated/l10n.dart';
+
 class PostItem extends StatefulWidget {
   const PostItem({super.key, required this.post});
 
@@ -177,6 +179,34 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
           const SizedBox(height: 10.0),
         ],
 
+        if (widget.post.likesCount > 0) ...{
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                // Likes count
+                Text(
+                  S.of(context).likesCount(widget.post.likesCount),
+                  style: TextStyle(fontSize: 14.0),
+                ),
+                const SizedBox(width: 5.0),
+                const Icon(
+                  Icons.thumb_up,
+                  color: Colors.deepPurple,
+                  size: 16.0,
+                ),
+                // TODO: implement a comments counter
+              ],
+            ),
+          ),
+        },
+
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Divider(height: 15.0),
+        ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -185,6 +215,8 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
                 setState(() {
                   isLiked = !isLiked;
                 });
+                // TODO: check if it's possible to update the like counter to increment the user like
+                // TODO: needs to update both the string and the database
                 if (isLiked) {
                   _likeController.forward();
                 } else {
