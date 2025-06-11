@@ -1,11 +1,11 @@
 import 'package:church_app/core/auth/domain/auth_service.dart';
+import 'package:church_app/feature/posts/presentation/mappers/post_presentation_mapper.dart';
 import 'package:church_app/feature/posts/presentation/viewmodels/home/home_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ntp/ntp.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 import '../../../domain/post_data_source.dart';
-import '../../models/post_ui.dart';
 
 class HomeViewModel extends StateNotifier<HomeState> {
   final AuthService _authService;
