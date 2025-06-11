@@ -1,5 +1,6 @@
 import 'package:uuid/uuid.dart';
 
+import '../../../../core/domain/value_objects/user.dart';
 import '../../domain/post.dart';
 import '../networking/dto/post_dto.dart';
 
@@ -9,9 +10,11 @@ extension PostDtoX on PostDto {
   Post toPost() {
     return Post(
       id: id,
-      userId: UuidValue.fromString(userId),
-      userName: userName,
-      userAvatarUrl: userAvatarUrl,
+      user: User(
+        id: UuidValue.fromString(userId),
+        name: userName,
+        avatarUrl: userAvatarUrl,
+      ),
       createdAt: DateTime.parse(createdAt),
       editedAt: editedAt != null ? DateTime.parse(editedAt!) : null,
       text: text,
@@ -27,9 +30,9 @@ extension PostX on Post {
   PostDto toDto() {
     return PostDto(
       id: id,
-      userId: userId.toString(),
-      userName: userName,
-      userAvatarUrl: userAvatarUrl,
+      userId: user.id.toString(),
+      userName: user.name,
+      userAvatarUrl: user.avatarUrl,
       createdAt: createdAt.toIso8601String(),
       editedAt: editedAt?.toIso8601String(),
       text: text,

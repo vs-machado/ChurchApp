@@ -1,5 +1,6 @@
 import 'package:uuid/uuid_value.dart';
 
+import '../../../../core/domain/value_objects/user.dart';
 import '../../domain/comment.dart';
 import '../networking/dto/comment_dto.dart';
 
@@ -9,9 +10,11 @@ extension CommentDtoX on CommentDto {
     return Comment(
       postId: postId,
       commentId: commentId,
-      userId: UuidValue.fromString(userId),
-      avatarUrl: avatarUrl,
-      userName: userName,
+      user: User(
+        id: UuidValue.fromString(userId),
+        name: userName,
+        avatarUrl: avatarUrl,
+      ),
       text: text,
       imageUrl: imageUrl,
       videoUrl: videoUrl,

@@ -14,9 +14,7 @@ extension CommentToUi on Comment {
     return CommentUi(
       postId: postId,
       commentId: commentId,
-      userId: userId,
-      avatarUrl: avatarUrl,
-      userName: userName,
+      user: user,
       text: text,
       imageUrl: imageUrl,
       videoUrl: videoUrl,

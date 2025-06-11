@@ -1,5 +1,7 @@
 import 'package:uuid/uuid_value.dart';
 
+import '../../../../core/domain/value_objects/user.dart';
+
 /// Comentário formatado para ser exibido ao usuário
 class CommentUi {
   /// Identificador único da postagem que o comentário pertence.
@@ -8,14 +10,8 @@ class CommentUi {
   /// Identificador único do comentário.
   final int commentId;
 
-  /// Identificador único do usuário que fez o comentário.
-  final UuidValue userId;
-
-  /// Url da foto de perfil do usuário.
-  final String? avatarUrl;
-
-  /// Nome do autor do comentário.
-  final String userName;
+  /// Usuário que enviou o comentário.
+  final User user;
 
   /// Conteúdo do comentário.
   final String text;
@@ -40,9 +36,7 @@ class CommentUi {
   CommentUi({
     required this.postId,
     required this.commentId,
-    required this.userId,
-    this.avatarUrl,
-    required this.userName,
+    required this.user,
     required this.text,
     this.imageUrl,
     this.videoUrl,

@@ -1,4 +1,4 @@
-import 'package:uuid/uuid.dart';
+import '../../../core/domain/value_objects/user.dart';
 
 /// Representa um comentário na camada domain
 class Comment {
@@ -8,14 +8,8 @@ class Comment {
   /// Identificador único do comentário.
   final int commentId;
 
-  /// Identificador único do usuário que fez o comentário.
-  final UuidValue userId;
-
-  /// Url da foto de perfil do usuário.
-  final String? avatarUrl;
-
-  /// Nome do autor do comentário.
-  final String userName;
+  /// Usuário que enviou o comentário.
+  final User user;
 
   /// Conteúdo do comentário.
   final String text;
@@ -35,9 +29,7 @@ class Comment {
   Comment({
     required this.postId,
     required this.commentId,
-    required this.userId,
-    this.avatarUrl,
-    required this.userName,
+    required this.user,
     required this.text,
     this.imageUrl,
     this.videoUrl,

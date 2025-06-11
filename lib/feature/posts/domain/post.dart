@@ -1,18 +1,12 @@
-import 'package:uuid/uuid.dart';
+import '../../../core/domain/value_objects/user.dart';
 
 /// Representa uma postagem na camada de domínio da aplicação
 class Post {
   /// Identificador único da postagem.
   final int id;
 
-  /// Identificador único do usuário.
-  final UuidValue userId;
-
-  /// Nome do usuário.
-  final String userName;
-
-  /// URL do avatar do usuário.
-  final String? userAvatarUrl;
+  /// Usuário que criou a postagem.
+  final User user;
 
   /// Data de criação da postagem.
   final DateTime createdAt;
@@ -34,9 +28,7 @@ class Post {
 
   Post({
     required this.id,
-    required this.userId,
-    required this.userName,
-    this.userAvatarUrl,
+    required this.user,
     required this.createdAt,
     this.editedAt,
     required this.text,

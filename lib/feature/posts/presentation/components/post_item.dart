@@ -43,8 +43,8 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
             children: [
               CircleAvatar(
                 backgroundImage:
-                    widget.post.userAvatarUrl != null
-                        ? NetworkImage(widget.post.userAvatarUrl!)
+                    widget.post.user.avatarUrl != null
+                        ? NetworkImage(widget.post.user.avatarUrl!)
                         : const AssetImage(
                               'lib/core/assets/images/profile_image.png',
                             )
@@ -64,7 +64,7 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
                           fontWeight: FontWeight.w800,
                           fontSize: 16.0,
                         ),
-                        widget.post.userName,
+                        widget.post.user.name,
                       ),
                     ),
                     Text(

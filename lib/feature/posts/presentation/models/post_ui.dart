@@ -1,23 +1,18 @@
 import 'dart:io';
 
 import 'package:church_app/feature/posts/domain/post.dart';
-import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import '../../../../core/domain/value_objects/user.dart';
 
 /// Representa uma postagem na camada de interface do usuário.
 class PostUi {
   /// Identificador único da postagem.
   final int id;
 
-  /// Identificador único do usuário.
-  final UuidValue userId;
-
-  /// Nome do usuário que fez a postagem.
-  final String userName;
-
-  /// URL do avatar do usuário que fez a postagem.
-  final String? userAvatarUrl;
+  /// Usuário que criou a postagem.
+  final User user;
 
   /// Tempo decorrido desde a postagem.
   final String timeSincePosted;
@@ -42,9 +37,7 @@ class PostUi {
 
   PostUi({
     required this.id,
-    required this.userId,
-    required this.userName,
-    this.userAvatarUrl,
+    required this.user,
     required this.timeSincePosted,
     required this.formattedPostedTime,
     this.timeSinceEdited,
@@ -85,9 +78,7 @@ extension PostToUi on Post {
 
     return PostUi(
       id: id,
-      userId: userId,
-      userName: userName,
-      userAvatarUrl: userAvatarUrl,
+      user: user,
       timeSincePosted: timeSincePosted,
       formattedPostedTime: formattedPostedTime,
       timeSinceEdited: timeSinceEdited,
