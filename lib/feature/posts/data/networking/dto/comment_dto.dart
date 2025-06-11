@@ -25,10 +25,10 @@ class CommentDto {
   final String? videoUrl;
 
   /// Data e hora em que o comentário foi criado.
-  final DateTime createdAt;
+  final String createdAt;
 
   /// Data e hora em que o comentário foi editado pela última vez.
-  final DateTime? editedAt;
+  final String? editedAt;
 
   CommentDto({
     required this.postId,
@@ -53,11 +53,8 @@ class CommentDto {
       text: json['text'] as String,
       imageUrl: json['image_url'] as String?,
       videoUrl: json['video_url'] as String?,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      editedAt:
-          json['edited_at'] == null
-              ? null
-              : DateTime.parse(json['edited_at'] as String),
+      createdAt: json['created_at'] as String,
+      editedAt: json['edited_at'] as String?,
     );
   }
 
@@ -71,8 +68,8 @@ class CommentDto {
       'text': text,
       'image_url': imageUrl,
       'video_url': videoUrl,
-      'created_at': createdAt.toIso8601String(),
-      'edited_at': editedAt?.toIso8601String(),
+      'created_at': createdAt,
+      'edited_at': editedAt,
     };
   }
 }
