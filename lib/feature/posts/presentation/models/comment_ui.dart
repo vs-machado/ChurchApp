@@ -37,9 +37,6 @@ class CommentUi {
   /// Horário que o comentário foi enviado.
   final String formattedCommentedTime;
 
-  /// Horário que o comentário foi editado.
-  final String? formattedEditedTime;
-
   CommentUi({
     required this.postId,
     required this.commentId,
@@ -52,6 +49,5 @@ class CommentUi {
     required this.timeSinceCommented,
     this.timeSinceEdited,
     required this.formattedCommentedTime,
-    this.formattedEditedTime,
   });
 }
