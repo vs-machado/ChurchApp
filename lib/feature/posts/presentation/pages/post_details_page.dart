@@ -104,7 +104,6 @@ Widget _buildBody(
             child: Column(
               children: [
                 PostItem(post: post),
-                const SizedBox(height: 16),
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
