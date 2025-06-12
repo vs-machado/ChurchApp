@@ -10,7 +10,9 @@ class CommentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
             backgroundImage:
@@ -23,27 +25,31 @@ class CommentItem extends StatelessWidget {
             radius: 20.0,
           ),
           const SizedBox(width: 10.0),
-          Padding(
-            padding: const EdgeInsets.only(top: 2.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 16.0,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      comment.user.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16.0,
+                      ),
                     ),
-                    comment.user.name,
                   ),
-                ),
-                Text(style: const TextStyle(fontSize: 14.0), comment.text),
-                Text(
-                  style: const TextStyle(fontSize: 12.0),
-                  comment.timeSinceCommented,
-                ),
-              ],
+                  Text(comment.text, style: const TextStyle(fontSize: 14.0)),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    comment.timeSinceCommented,
+                    style: const TextStyle(fontSize: 12.0),
+                  ),
+                  const SizedBox(height: 4.0),
+                ],
+              ),
             ),
           ),
         ],

@@ -5,17 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ntp/ntp.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
-import '../../../domain/post_data_source.dart';
+import '../../../domain/remote_data_source.dart';
 
 class HomeViewModel extends StateNotifier<HomeState> {
   final AuthService _authService;
-  final PostDataSource _postDataSource;
+  final RemoteDataSource _postDataSource;
 
   HomeViewModel({
     required AuthService authService,
-    required PostDataSource postDataSource,
+    required RemoteDataSource remoteDataSource,
   }) : _authService = authService,
-       _postDataSource = postDataSource,
+       _postDataSource = remoteDataSource,
        super(HomeInitial());
 
   void logout() {
