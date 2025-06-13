@@ -163,6 +163,9 @@ Widget _buildCommentTextField(
     ),
     child: TextField(
       controller: controller,
+      keyboardType: TextInputType.multiline,
+      textInputAction: TextInputAction.newline,
+      maxLines: null,
       onSubmitted: (_) => () {} /*sendMessage()*/,
       decoration: InputDecoration(
         hintText: S.of(context).leaveAComment,
