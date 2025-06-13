@@ -38,7 +38,7 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(left: 10.0),
           child: Row(
             children: [
               CircleAvatar(
@@ -81,7 +81,7 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
 
         // Conteúdo do post em texto
         Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
           child: GestureDetector(
             onTap: () {
               Navigator.pushNamed(
@@ -168,10 +168,16 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
                 arguments: widget.post,
               );
             },
-            child: Image.network(
-              widget.post.photoUrl!,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: Image.network(
+                  widget.post.photoUrl!,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 10.0),
