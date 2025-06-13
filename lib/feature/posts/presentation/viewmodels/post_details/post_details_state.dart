@@ -1,4 +1,4 @@
-import 'package:church_app/feature/posts/presentation/models/comment_ui.dart';
+import '../../models/comment_ui.dart';
 
 sealed class PostDetailsState {}
 
@@ -16,4 +16,10 @@ class Success extends PostDetailsState {
   final List<CommentUi> comments;
 
   Success(this.comments);
+}
+
+class PostingComment extends PostDetailsState {
+  final List<CommentUi> comments;
+
+  PostingComment(this.comments);
 }

@@ -17,9 +17,9 @@ class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
   }) : _remoteDataSource = remoteDataSource,
        super(Initial());
 
-  /// Realiza o fetching dos comentários do post selecionado e exibe ao usuário
+  /// Realiza o fetching dos comentários do post selecionado.
   ///
-  /// [postId] Id do post a carregar os comentários
+  /// Utiliza o [postId] para a query e exibe ao usuário os resultados.
   Future<void> fetchComments(int postId) async {
     try {
       state = Loading();
@@ -46,6 +46,33 @@ class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
       state = Success(commentsUi);
     } catch (e) {
       state = DetailsError('Failed to fetch comments: ${e.toString()}');
+    }
+  }
+
+  /// Envia o comentário do usuário para o banco de dados e atualiza os comentários postados na tela.
+  ///
+  /// O [comment], [imageUrl] e [videoUrl] são enviados através de um insert que contém o [postId].
+  Future<void> sendComment(
+    int postId,
+    String comment, {
+    String? imageUrl,
+    String? videoUrl,
+  }) async {
+    final currentState = state;
+
+    if (currentState is Success) {
+      try {
+        state = PostingComment(currentState.comments);
+        await _remoteDataSource.sendComment(
+          postId,
+          comment,
+          imageUrl,
+          videoUrl,
+        );
+        await fetchComments(postId);
+      } catch (e) {
+        state = DetailsError('Failed to send comment: ${e.toString()}');
+      }
     }
   }
 }

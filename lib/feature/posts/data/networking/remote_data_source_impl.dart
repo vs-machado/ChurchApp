@@ -47,4 +47,26 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       errorMessage: 'Failed to fetch comments',
     );
   }
+
+  @override
+  Future<void> sendComment(
+    int postId,
+    String comment,
+    String? imageUrl,
+    String? videoUrl,
+  ) async {
+    final user = _supabase.auth.currentUser;
+    if (user == null) {
+      throw Exception('User is not logged in');
+    }
+
+    final userId = user.id;
+    final response = await _supabase.from('comments').insert({
+      'post_id': postId,
+      'user_id': userId,
+      'text': comment,
+      'image_url': imageUrl,
+      'video_url': videoUrl,
+    });
+  }
 }
