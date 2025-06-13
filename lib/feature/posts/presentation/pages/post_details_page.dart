@@ -44,7 +44,7 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
 
     // Chama o fetching dos comentários
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = ref.watch(provider);
+      final state = ref.read(provider);
       final viewModel = ref.read(provider.notifier);
 
       if (state is Initial) {
@@ -56,11 +56,17 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(provider);
+    final viewModel = ref.read(provider.notifier);
 
     return Scaffold(
       appBar: AppBar(title: Text(S.of(context).postDetails)),
       body: SafeArea(
-        child: _buildBody(state, context, widget.post, _controller),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await viewModel.fetchComments(widget.post.id);
+          },
+          child: _buildBody(state, context, widget.post, _controller),
+        ),
       ),
       resizeToAvoidBottomInset:
           true, // Garante que o teclado não cubra o TextField
@@ -101,6 +107,7 @@ Widget _buildBody(
       children: [
         Expanded(
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
                 PostItem(post: post),
