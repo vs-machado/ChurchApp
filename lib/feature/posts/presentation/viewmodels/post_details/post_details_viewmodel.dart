@@ -5,11 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ntp/ntp.dart';
 
+import '../../models/comment_ui.dart';
+
 ///  Carrega os comentários do post selecionado.
 ///  Em caso de falha, exibe um erro.
 class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
   final RemoteDataSource _remoteDataSource;
   final int postId;
+
+  int _offset = 0;
+  bool allCommentsLoaded = false;
 
   PostDetailsViewModel({
     required RemoteDataSource remoteDataSource,
@@ -20,12 +25,20 @@ class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
   /// Realiza o fetching dos comentários do post selecionado.
   ///
   /// Utiliza o [postId] para a query e exibe ao usuário os resultados.
-  Future<void> fetchComments(int postId) async {
-    try {
-      state = Loading();
+  Future<List<CommentUi>> fetchComments(int pageKey, {int limit = 10}) async {
+    if (allCommentsLoaded) {
+      state = CommentsLoaded(true);
+      return [];
+    }
 
-      final comments = await _remoteDataSource.getComments(postId);
-      debugPrint('Comentários recebidos: ${comments.length}');
+    _offset = (pageKey - 1) * limit;
+    try {
+      final comments = await _remoteDataSource.getComments(
+        postId,
+        limit: limit,
+        offset: _offset,
+      );
+      debugPrint('Comentários recebidos: ${comments.length}, offset: $_offset');
       for (var comment in comments) {
         debugPrint(
           'Comentário: id=${comment.commentId}, texto=${comment.text}, usuário=${comment.user.name}',
@@ -41,11 +54,15 @@ class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
         currentTime = null;
       }
 
+      if (comments.isEmpty || comments.length < limit) {
+        allCommentsLoaded = true;
+      }
+
       final commentsUi =
           comments.map((comment) => comment.toUi(currentTime)).toList();
-      state = Success(commentsUi);
+      return commentsUi;
     } catch (e) {
-      state = DetailsError('Failed to fetch comments: ${e.toString()}');
+      return [];
     }
   }
 
@@ -58,21 +75,16 @@ class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
     String? imageUrl,
     String? videoUrl,
   }) async {
-    final currentState = state;
-
-    if (currentState is Success) {
-      try {
-        state = PostingComment(currentState.comments);
-        await _remoteDataSource.sendComment(
-          postId,
-          comment,
-          imageUrl,
-          videoUrl,
-        );
-        await fetchComments(postId);
-      } catch (e) {
-        state = DetailsError('Failed to send comment: ${e.toString()}');
-      }
+    try {
+      await _remoteDataSource.sendComment(postId, comment, imageUrl, videoUrl);
+      await fetchComments(postId);
+    } catch (e) {
+      state = DetailsError('Failed to send comment: ${e.toString()}');
     }
+  }
+
+  void resetCommentsState() {
+    allCommentsLoaded = false;
+    state = Initial();
   }
 }
