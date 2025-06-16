@@ -168,6 +168,8 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
                         await viewModel.sendComment(widget.post.id, text);
                         _controller.clear(); // Limpa o campo após envio
                       }
+
+                      _pagingController.refresh();
                     },
           ),
         ],

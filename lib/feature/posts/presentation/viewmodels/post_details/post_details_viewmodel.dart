@@ -77,7 +77,10 @@ class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
   }) async {
     try {
       await _remoteDataSource.sendComment(postId, comment, imageUrl, videoUrl);
-      await fetchComments(postId);
+
+      // Reseta o estado para permitir nova busca
+      allCommentsLoaded = false;
+      _offset = 0;
     } catch (e) {
       state = DetailsError('Failed to send comment: ${e.toString()}');
     }
