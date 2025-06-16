@@ -4,9 +4,10 @@ import 'package:church_app/feature/posts/presentation/models/post_ui.dart';
 import '../../../../generated/l10n.dart';
 
 class PostItem extends StatefulWidget {
-  const PostItem({super.key, required this.post});
+  const PostItem({super.key, required this.post, this.onCommentPressed});
 
   final PostUi post;
+  final VoidCallback? onCommentPressed;
 
   @override
   State<PostItem> createState() => _PostItemState();
@@ -244,7 +245,7 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
               isActive: isLiked,
             ),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () => widget.onCommentPressed?.call(),
               icon: const Icon(Icons.chat_bubble_outline),
               label: const Text('Comentar'),
             ),

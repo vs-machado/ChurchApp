@@ -25,6 +25,8 @@ class PostDetailsPage extends ConsumerStatefulWidget {
 
 class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
   final TextEditingController _controller = TextEditingController();
+  FocusNode _commentFocusNode = FocusNode();
+
   late final provider = postDetailsViewModelProvider(widget.post.id);
 
   late final _pagingController = PagingController<int, CommentUi>(
@@ -34,6 +36,10 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
 
   // // TODO: desativar antes de commitar
   // bool _initialFetchDone = false; // desativa o fetching durante hot reload
+
+  void _focusCommentField() {
+    _commentFocusNode.requestFocus();
+  }
 
   @override
   void dispose() {
@@ -58,6 +64,15 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(provider);
     final viewModel = ref.watch(provider.notifier);
+
+    // Verifica se deve focar o campo de comentário na abertura da página
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is Map<String, dynamic> && args['focusComment'] == true) {
+      // Focaliza após a renderização
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _focusCommentField();
+      });
+    }
 
     // Quando todos os comentários forem carregados, atualiza o estado do pagingstate
     // para evitar a exibição do CircularProgressIndicator e a chamada do fetching.
@@ -89,10 +104,6 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
 
     return Column(
       children: [
-        // Exibe o post
-        PostItem(post: post),
-
-        // Exibe a lista de comentários
         Expanded(
           child: RefreshIndicator(
             onRefresh:
@@ -100,19 +111,28 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
                   viewModel.resetCommentsState();
                   _pagingController.refresh();
                 }),
-            child: PagingListener(
-              controller: _pagingController,
-              builder:
-                  (context, state, fetchNextPage) =>
-                      PagedListView<int, CommentUi>(
-                        state: state,
-                        fetchNextPage: fetchNextPage,
-                        builderDelegate: PagedChildBuilderDelegate(
-                          itemBuilder:
-                              (context, item, index) =>
-                                  CommentItem(comment: item),
-                        ),
-                      ),
+            child: CustomScrollView(
+              slivers: [
+                // Exibe o post
+                SliverToBoxAdapter(child: PostItem(post: post)),
+                //Exibe a lista de comentários
+                PagingListener(
+                  controller: _pagingController,
+                  builder:
+                      (context, state, fetchNextPage) =>
+                          PagedSliverList<int, CommentUi>(
+                            state: state,
+                            fetchNextPage: fetchNextPage,
+                            builderDelegate: PagedChildBuilderDelegate(
+                              itemBuilder:
+                                  (context, item, index) => CommentItem(
+                                    key: ValueKey(item.commentId),
+                                    comment: item,
+                                  ),
+                            ),
+                          ),
+                ),
+              ],
             ),
           ),
         ),
@@ -142,6 +162,7 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
           Expanded(
             child: TextField(
               controller: _controller,
+              focusNode: _commentFocusNode,
               keyboardType: TextInputType.multiline,
               textInputAction: TextInputAction.newline,
               maxLines: null,

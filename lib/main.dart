@@ -66,7 +66,17 @@ class MainApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/postDetails':
-            final PostUi post = settings.arguments as PostUi;
+            final args = settings.arguments;
+            PostUi post;
+
+            if (args is Map<String, dynamic>) {
+              post = args['post'] as PostUi;
+            } else if (args is PostUi) {
+              post = args;
+            } else {
+              throw Exception('Invalid arguments for PostDetailsPage');
+            }
+
             return MaterialPageRoute(
               builder: (context) => PostDetailsPage(post: post),
             );

@@ -51,7 +51,16 @@ class HomePage extends ConsumerWidget {
           final post = state.posts[index];
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: PostItem(post: post),
+            child: PostItem(
+              post: post,
+              onCommentPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  "/postDetails",
+                  arguments: {'post': post, 'focusComment': true},
+                );
+              },
+            ),
           );
         },
       ),
