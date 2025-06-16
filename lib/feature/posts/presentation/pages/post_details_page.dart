@@ -10,6 +10,9 @@ import '../models/comment_ui.dart';
 import '../models/post_ui.dart';
 import '../viewmodels/post_details/post_details_viewmodel.dart';
 
+/// Exibe a postagem detalhada e os comentários abaixo.
+///
+/// Utiliza a biblioteca infinite_scroll_pagination para a paginação dos comentários.
 class PostDetailsPage extends ConsumerStatefulWidget {
   final PostUi post;
 
@@ -91,19 +94,26 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
 
         // Exibe a lista de comentários
         Expanded(
-          child: PagingListener(
-            controller: _pagingController,
-            builder:
-                (context, state, fetchNextPage) =>
-                    PagedListView<int, CommentUi>(
-                      state: state,
-                      fetchNextPage: fetchNextPage,
-                      builderDelegate: PagedChildBuilderDelegate(
-                        itemBuilder:
-                            (context, item, index) =>
-                                CommentItem(comment: item),
+          child: RefreshIndicator(
+            onRefresh:
+                () => Future.sync(() {
+                  viewModel.resetCommentsState();
+                  _pagingController.refresh();
+                }),
+            child: PagingListener(
+              controller: _pagingController,
+              builder:
+                  (context, state, fetchNextPage) =>
+                      PagedListView<int, CommentUi>(
+                        state: state,
+                        fetchNextPage: fetchNextPage,
+                        builderDelegate: PagedChildBuilderDelegate(
+                          itemBuilder:
+                              (context, item, index) =>
+                                  CommentItem(comment: item),
+                        ),
                       ),
-                    ),
+            ),
           ),
         ),
 
