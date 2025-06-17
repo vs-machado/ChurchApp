@@ -112,31 +112,5 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
       ],
     );
-
-    // return switch (state) {
-    //   HomeInitial() => Center(child: Text(S.of(context).welcome)),
-    //   HomeLoading() => const Center(child: CircularProgressIndicator()),
-    //   HomeSuccess() =>
-    // HomeSuccess() => ListView.builder(
-    //   itemCount: staaaate.posts.length,
-    //   itemBuilder: (context, index) {
-    //     final post = state.posts[index];
-    //     return Padding(
-    //       padding: const EdgeInsets.only(top: 8.0),
-    //       child: PostItem(
-    //         post: post,
-    //         onCommentPressed: () {
-    //           Navigator.pushNamed(
-    //             context,
-    //             "/postDetails",
-    //             arguments: {'post': post, 'focusComment': true},
-    //           );
-    //         },
-    //       ),
-    //     );
-    //   },
-    // ),
-    // HomeError() => Center(child: Text(S.of(context).anErrorOccurred)),
-    // };
   }
 }

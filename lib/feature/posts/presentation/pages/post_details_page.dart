@@ -129,6 +129,7 @@ class _PostDetailsPageState extends ConsumerState<PostDetailsPage> {
                                     key: ValueKey(item.commentId),
                                     comment: item,
                                   ),
+                              noItemsFoundIndicatorBuilder: (_) => Text(""),
                             ),
                           ),
                 ),
