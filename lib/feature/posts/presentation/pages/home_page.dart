@@ -1,17 +1,47 @@
 import 'package:church_app/feature/posts/di/providers.dart';
 import 'package:church_app/feature/posts/presentation/viewmodels/home/home_state.dart';
+import 'package:church_app/feature/posts/presentation/viewmodels/home/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../generated/l10n.dart';
 import '../components/post_item.dart';
+import '../models/post_ui.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(homeViewModelProvider);
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  late final provider = homeViewModelProvider;
+
+  late final _pagingController = PagingController<int, PostUi>(
+    getNextPageKey: (state) => (state.keys?.last ?? 0) + 1,
+    fetchPage: (pageKey) => ref.watch(provider.notifier).fetchPosts(pageKey),
+  );
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = ref.watch(provider.notifier);
+
+    ref.listen<HomeState>(provider, (previous, next) {
+      if (viewModel.allPostsLoaded) {
+        _pagingController.value = _pagingController.value.copyWith(
+          hasNextPage: false,
+          isLoading: false,
+        );
+      }
+    });
 
     ref.listen(homeViewModelProvider, (previous, current) {
       if (current is HomeError) {
@@ -22,8 +52,8 @@ class HomePage extends ConsumerWidget {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (state is HomeInitial) {
-        ref.read(homeViewModelProvider.notifier).fetchPosts();
+      if (mounted) {
+        ref.read(provider.notifier).resetPostsState();
       }
     });
 
@@ -37,34 +67,71 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: _buildBody(state, context),
+      body: _buildBody(context, viewModel),
     );
   }
 
-  Widget _buildBody(HomeState state, BuildContext context) {
-    return switch (state) {
-      HomeInitial() => Center(child: Text(S.of(context).welcome)),
-      HomeLoading() => const Center(child: CircularProgressIndicator()),
-      HomeSuccess() => ListView.builder(
-        itemCount: state.posts.length,
-        itemBuilder: (context, index) {
-          final post = state.posts[index];
-          return Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: PostItem(
-              post: post,
-              onCommentPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  "/postDetails",
-                  arguments: {'post': post, 'focusComment': true},
-                );
-              },
+  Widget _buildBody(BuildContext context, HomeViewModel viewModel) {
+    return Column(
+      children: [
+        Expanded(
+          child: RefreshIndicator(
+            onRefresh:
+                () => Future.sync(() {
+                  viewModel.resetPostsState();
+                  _pagingController.refresh();
+                }),
+            child: PagingListener(
+              controller: _pagingController,
+              builder:
+                  (context, state, fetchNextPage) => PagedListView<int, PostUi>(
+                    state: state,
+                    fetchNextPage: fetchNextPage,
+                    builderDelegate: PagedChildBuilderDelegate(
+                      itemBuilder:
+                          (context, item, index) => PostItem(
+                            key: ValueKey(item.id),
+                            post: item,
+                            onCommentPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                "/postDetails",
+                                arguments: {'post': item, 'focusComment': true},
+                              );
+                            },
+                          ),
+                    ),
+                  ),
             ),
-          );
-        },
-      ),
-      HomeError() => Center(child: Text(S.of(context).anErrorOccurred)),
-    };
+          ),
+        ),
+      ],
+    );
+
+    // return switch (state) {
+    //   HomeInitial() => Center(child: Text(S.of(context).welcome)),
+    //   HomeLoading() => const Center(child: CircularProgressIndicator()),
+    //   HomeSuccess() =>
+    // HomeSuccess() => ListView.builder(
+    //   itemCount: staaaate.posts.length,
+    //   itemBuilder: (context, index) {
+    //     final post = state.posts[index];
+    //     return Padding(
+    //       padding: const EdgeInsets.only(top: 8.0),
+    //       child: PostItem(
+    //         post: post,
+    //         onCommentPressed: () {
+    //           Navigator.pushNamed(
+    //             context,
+    //             "/postDetails",
+    //             arguments: {'post': post, 'focusComment': true},
+    //           );
+    //         },
+    //       ),
+    //     );
+    //   },
+    // ),
+    // HomeError() => Center(child: Text(S.of(context).anErrorOccurred)),
+    // };
   }
 }

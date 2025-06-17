@@ -12,8 +12,6 @@ class HomeError extends HomeState {
   HomeError(this.message);
 }
 
-class HomeSuccess extends HomeState {
-  final List<PostUi> posts;
+class AllPostsLoaded extends HomeState {}
 
-  HomeSuccess(this.posts);
-}
+class HomeSuccess extends HomeState {}

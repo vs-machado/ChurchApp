@@ -2,14 +2,19 @@ import 'package:church_app/core/auth/domain/auth_service.dart';
 import 'package:church_app/feature/posts/presentation/mappers/post_presentation_mapper.dart';
 import 'package:church_app/feature/posts/presentation/viewmodels/home/home_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ntp/ntp.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 import '../../../domain/remote_data_source.dart';
+import '../../models/post_ui.dart';
 
 class HomeViewModel extends StateNotifier<HomeState> {
   final AuthService _authService;
   final RemoteDataSource _postDataSource;
+
+  int _offset = 0;
+  bool allPostsLoaded = false;
 
   HomeViewModel({
     required AuthService authService,
@@ -29,11 +34,18 @@ class HomeViewModel extends StateNotifier<HomeState> {
   /// resultando em cálculos inconsistentes.
   ///
   /// Quando o currentTime é null (usuário sem internet), [DateTime.now] é utilizado. Para mais detalhes, ver [timeAgo.format].
-  Future<void> fetchPosts() async {
-    try {
-      state = HomeLoading();
+  Future<List<PostUi>> fetchPosts(int pageKey, {int limit = 10}) async {
+    if (allPostsLoaded) {
+      state = AllPostsLoaded();
+      return [];
+    }
 
-      final posts = await _postDataSource.getPosts();
+    _offset = (pageKey - 1) * limit;
+    try {
+      final posts = await _postDataSource.getPosts(
+        offset: _offset,
+        limit: limit,
+      );
 
       DateTime? currentTime;
       try {
@@ -42,11 +54,18 @@ class HomeViewModel extends StateNotifier<HomeState> {
         currentTime = null;
       }
 
+      if (posts.isEmpty || posts.length < limit) allPostsLoaded = true;
+
       final postsUi = posts.map((post) => post.toUi(currentTime)).toList();
-      state = HomeSuccess(postsUi);
+      return postsUi;
     } catch (e) {
-      // TODO: dar catch nos network errors
       state = HomeError('Failed to fetch posts: ${e.toString()}');
+      return [];
     }
+  }
+
+  void resetPostsState() {
+    allPostsLoaded = false;
+    state = HomeInitial();
   }
 }

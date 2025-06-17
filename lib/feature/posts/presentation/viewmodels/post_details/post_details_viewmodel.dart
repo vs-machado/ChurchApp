@@ -62,6 +62,7 @@ class PostDetailsViewModel extends StateNotifier<PostDetailsState> {
           comments.map((comment) => comment.toUi(currentTime)).toList();
       return commentsUi;
     } catch (e) {
+      state = DetailsError('Failed to fetch comments: ${e.toString()}');
       return [];
     }
   }
