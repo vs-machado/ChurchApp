@@ -42,7 +42,7 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
       elevation: 0,
       margin: const EdgeInsets.symmetric(vertical: 0),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.only(top: 12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -218,53 +218,53 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
             },
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Divider(height: 15.0),
-            ),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        isLiked = !isLiked;
+                      });
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      isLiked = !isLiked;
-                    });
-
-                    if (isLiked) {
-                      _likeController.forward();
-                    } else {
-                      _likeController.reverse();
-                    }
-                  },
-                  icon: AnimatedBuilder(
-                    animation: _likeController,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: 1.0 + (_likeController.value * 0.4),
-                        child: Icon(
-                          isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
-                          color: isLiked ? Colors.deepPurple : null,
-                        ),
-                      );
+                      if (isLiked) {
+                        _likeController.forward();
+                      } else {
+                        _likeController.reverse();
+                      }
                     },
+                    icon: AnimatedBuilder(
+                      animation: _likeController,
+                      builder: (context, child) {
+                        return Transform.scale(
+                          scale: 1.0 + (_likeController.value * 0.4),
+                          child: Icon(
+                            isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
+                            color: isLiked ? Colors.deepPurple : null,
+                          ),
+                        );
+                      },
+                    ),
+                    label: Text(
+                      isLiked ? 'Descurtir' : 'Curtir',
+                      style: TextStyle(
+                        color: isLiked ? Colors.deepPurple : null,
+                      ),
+                    ),
                   ),
-                  label: Text(
-                    isLiked ? 'Descurtir' : 'Curtir',
-                    style: TextStyle(color: isLiked ? Colors.deepPurple : null),
+                  TextButton.icon(
+                    onPressed: () => widget.onCommentPressed?.call(),
+                    icon: const Icon(Icons.chat_bubble_outline),
+                    label: const Text('Comentar'),
                   ),
-                ),
-                TextButton.icon(
-                  onPressed: () => widget.onCommentPressed?.call(),
-                  icon: const Icon(Icons.chat_bubble_outline),
-                  label: const Text('Comentar'),
-                ),
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.share_outlined),
-                  label: const Text('Compartilhar'),
-                ),
-              ],
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.share_outlined),
+                    label: const Text('Compartilhar'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

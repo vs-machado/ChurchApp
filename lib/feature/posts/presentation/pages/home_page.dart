@@ -84,24 +84,29 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: PagingListener(
               controller: _pagingController,
               builder:
-                  (context, state, fetchNextPage) => PagedListView<int, PostUi>(
-                    state: state,
-                    fetchNextPage: fetchNextPage,
-                    builderDelegate: PagedChildBuilderDelegate(
-                      itemBuilder:
-                          (context, item, index) => PostItem(
-                            key: ValueKey(item.id),
-                            post: item,
-                            onCommentPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                "/postDetails",
-                                arguments: {'post': item, 'focusComment': true},
-                              );
-                            },
-                          ),
-                    ),
-                  ),
+                  (context, state, fetchNextPage) =>
+                      PagedListView<int, PostUi>.separated(
+                        state: state,
+                        fetchNextPage: fetchNextPage,
+                        builderDelegate: PagedChildBuilderDelegate(
+                          itemBuilder:
+                              (context, item, index) => PostItem(
+                                key: ValueKey(item.id),
+                                post: item,
+                                onCommentPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    "/postDetails",
+                                    arguments: {
+                                      'post': item,
+                                      'focusComment': true,
+                                    },
+                                  );
+                                },
+                              ),
+                        ),
+                        separatorBuilder: (context, index) => const Divider(),
+                      ),
             ),
           ),
         ),
