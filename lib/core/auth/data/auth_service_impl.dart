@@ -4,8 +4,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Serviço de autenticação do Supabase
-class AuthServiceImpl extends AuthService<AuthResponse> {
-  final SupabaseClient _supabase = Supabase.instance.client;
+class AuthServiceImpl implements AuthService<AuthResponse> {
+  final SupabaseClient _supabase;
+
+  AuthServiceImpl({required SupabaseClient supabaseClient})
+      : _supabase = supabaseClient;
 
   // Get GoogleSignIn instance
   GoogleSignIn _getGoogleSignIn() {
@@ -17,10 +20,8 @@ class AuthServiceImpl extends AuthService<AuthResponse> {
   }
 
   @override
-  Future<AuthResponse> signInWithEmailPassword(
-    String email,
-    String password,
-  ) async {
+  Future<AuthResponse> signInWithEmailPassword(String email,
+      String password,) async {
     return await _supabase.auth.signInWithPassword(
       email: email,
       password: password,
@@ -50,10 +51,8 @@ class AuthServiceImpl extends AuthService<AuthResponse> {
   }
 
   @override
-  Future<AuthResponse> signUpWithEmailPassword(
-    String email,
-    String password,
-  ) async {
+  Future<AuthResponse> signUpWithEmailPassword(String email,
+      String password,) async {
     return await _supabase.auth.signUp(email: email, password: password);
   }
 
@@ -78,5 +77,23 @@ class AuthServiceImpl extends AuthService<AuthResponse> {
     final session = _supabase.auth.currentSession;
     final user = session?.user;
     return user?.email;
+  }
+
+  @override
+  String? get userId {
+    return _supabase.auth.currentUser?.id;
+  }
+
+  @override
+  Future<void> updateUserProfile({required Map<String, dynamic> data}) async {
+    final id = userId;
+    if (id != null) {
+      await _supabase.from('users').update(data).eq('id', id);
+    }
+  }
+
+  @override
+  Map<String, dynamic>? getCurrentUserMetadata() {
+    return _supabase.auth.currentUser?.userMetadata;
   }
 }

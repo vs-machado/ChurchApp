@@ -14,12 +14,19 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^1.1.5
-  intl: ^0.19.0
+  intl: any
   riverpod: ^2.6.1
   flutter_riverpod: ^2.6.1
   supabase_flutter: ^2.9.0
   intl_utils: ^2.8.10
   google_sign_in: ^6.3.0
+  uuid: ^4.5.1
+  flutter_lorem: ^2.0.0
+  ntp: ^2.0.0
+  timeago: ^3.7.1
+  infinite_scroll_pagination: ^5.0.0
+  cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +38,7 @@ flutter:
   uses-material-design: true
   assets:
     - lib/core/assets/icons/google_logo.svg
+    - lib/core/assets/images/
     - .env
 flutter_intl:
   enabled: true

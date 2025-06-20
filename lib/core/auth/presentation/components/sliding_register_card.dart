@@ -8,7 +8,7 @@ import 'package:church_app/core/domain/util/network_error.dart';
 import 'package:church_app/generated/l10n.dart' show S;
 
 /// Tela de cadastro do app.
-/// Exibe três text inputs: email, senha e confirmar senha.
+/// Exibe quatro text inputs: nome completo, email, senha e confirmar senha.
 /// Caso o usuário se cadastre com sucesso: redireciona para a HomePage.
 /// Caso o cadastro falhe: exibe mensagem de erro através de um Text ou Snackbar
 /// Texts são utilizados para exibir erros de validação ou autenticação.
@@ -34,16 +34,19 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _fullNameController = TextEditingController();
 
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
+  final _fullNameFocusNode = FocusNode();
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
 
   bool _emailHasFocus = false;
   bool _passwordHasFocus = false;
   bool _confirmPasswordHasFocus = false;
+  bool _fullNameHasFocus = false;
 
   // Utilizado para exibir mensagem de erro de autenticação ou validação de emails e senhas
   AuthError? _currentValidationError;
@@ -62,6 +65,7 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
     _emailFocusNode.addListener(_onEmailFocusChange);
     _passwordFocusNode.addListener(_onPasswordFocusChange);
     _confirmPasswordFocusNode.addListener(_onConfirmPasswordFocusChange);
+    _fullNameFocusNode.addListener(_onFullNameFocusChange);
   }
 
   // Utilizado para alternar ícone entre outlined e filled
@@ -85,17 +89,26 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
     });
   }
 
+  void _onFullNameFocusChange() {
+    setState(() {
+      _fullNameHasFocus = _fullNameFocusNode.hasFocus;
+    });
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _fullNameController.dispose();
     _emailFocusNode.removeListener(_onEmailFocusChange);
     _passwordFocusNode.removeListener(_onPasswordFocusChange);
     _confirmPasswordFocusNode.removeListener(_onConfirmPasswordFocusChange);
+    _fullNameFocusNode.removeListener(_onFullNameFocusChange);
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
+    _fullNameFocusNode.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -204,6 +217,21 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: _fullNameController,
+                          decoration: InputDecoration(
+                            labelText: S.of(context).fullName,
+                            hintText: S.of(context).fullName,
+                            prefixIcon: Icon(
+                              _fullNameHasFocus
+                                  ? Icons.person
+                                  : Icons.person_outline,
+                            ),
+                          ),
+                          keyboardType: TextInputType.name,
+                          focusNode: _fullNameFocusNode,
+                        ),
+                        const SizedBox(height: 16.0),
+                        TextFormField(
                           controller: _emailController,
                           decoration: InputDecoration(
                             labelText: S.of(context).email,
@@ -307,10 +335,13 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                                     final password = _passwordController.text;
                                     final confirmPassword =
                                         _confirmPasswordController.text;
+                                    final fullName = _fullNameController.text;
 
                                     AuthError? errorToShow;
 
-                                    if (!email.isValidEmail()) {
+                                    if (fullName.isEmpty) {
+                                      errorToShow = AuthError.emptyName;
+                                    } else if (!email.isValidEmail()) {
                                       errorToShow = AuthError.invalidEmail;
                                     } else if (password != confirmPassword) {
                                       errorToShow =
@@ -330,6 +361,7 @@ class _SlidingRegisterCardState extends ConsumerState<SlidingRegisterCard>
                                         email,
                                         password,
                                         confirmPassword,
+                                        fullName,
                                       );
                                     }
                                   },

@@ -20,6 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'pt';
 
+  static String m0(count) =>
+      "${Intl.plural(count, zero: '', one: 'count', other: '${count}')}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "anErrorOccurred": MessageLookupByLibrary.simpleMessage(
@@ -35,7 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Erro: Este email já foi cadastrado anteriormente.",
     ),
     "enter": MessageLookupByLibrary.simpleMessage("Entrar"),
-    "haveAnAccount": MessageLookupByLibrary.simpleMessage("Possui uma conta?"),
+    "fullName": MessageLookupByLibrary.simpleMessage("Nome completo"),
+    "haveAnAccount": MessageLookupByLibrary.simpleMessage("Possui uma conta? "),
     "homePage": MessageLookupByLibrary.simpleMessage("Página inicial"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
       "Email ou senha incorretos. Corrija e tente novamente.",
@@ -43,7 +47,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "insertAValidEmail": MessageLookupByLibrary.simpleMessage(
       "Insira um email válido.",
     ),
+    "leaveAComment": MessageLookupByLibrary.simpleMessage(
+      "Deixe um comentário",
+    ),
+    "likesCount": m0,
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "nameFieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
+      "O campo nome não pode estar vazio.",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "Erro: sem conexão com a internet.",
     ),
@@ -55,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsAreNotTheSame": MessageLookupByLibrary.simpleMessage(
       "As senhas inseridas não são iguais. Tente novamente.",
     ),
+    "postDetails": MessageLookupByLibrary.simpleMessage("Detalhes da postagem"),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts carregados."),
     "register": MessageLookupByLibrary.simpleMessage("Cadastrar"),
     "registerEmailPassword": MessageLookupByLibrary.simpleMessage(

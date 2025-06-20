@@ -5,11 +5,18 @@ import 'package:church_app/core/auth/presentation/viewmodels/login/login_viewmod
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_state.dart';
 import 'package:church_app/core/auth/presentation/viewmodels/register/register_viewmodel.dart';
 import 'package:riverpod/riverpod.dart';
-
 import '../auth/presentation/viewmodels/google_sign_in/google_sign_in_state.dart';
 import '../auth/presentation/viewmodels/google_sign_in/google_sign_in_viewmodel.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-final authServiceProvider = Provider<AuthService>((ref) => AuthServiceImpl());
+final supabaseClientProvider = Provider<SupabaseClient>((ref) {
+  return Supabase.instance.client;
+});
+
+final authServiceProvider = Provider<AuthService<AuthResponse>>((ref) {
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return AuthServiceImpl(supabaseClient: supabaseClient);
+});
 
 final loginViewModelProvider =
     StateNotifierProvider.autoDispose<LoginViewModel, LoginState>((ref) {

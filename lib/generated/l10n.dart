@@ -295,10 +295,10 @@ class S {
     return Intl.message('or', name: 'or', desc: '', args: []);
   }
 
-  /// `Already have an account?`
+  /// `Already have an account? `
   String get haveAnAccount {
     return Intl.message(
-      'Already have an account?',
+      'Already have an account? ',
       name: 'haveAnAccount',
       desc: '',
       args: [],
@@ -310,6 +310,54 @@ class S {
     return Intl.message(
       'The password field cannot be empty',
       name: 'thePasswordFieldCantBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The name field can't be empty.`
+  String get nameFieldCantBeEmpty {
+    return Intl.message(
+      'The name field can\'t be empty.',
+      name: 'nameFieldCantBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get fullName {
+    return Intl.message('Full name', name: 'fullName', desc: '', args: []);
+  }
+
+  /// `{count, plural, =0{} =1{count} other{{count}}}`
+  String likesCount(int count) {
+    return Intl.plural(
+      count,
+      zero: '',
+      one: 'count',
+      other: '$count',
+      name: 'likesCount',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Leave a comment`
+  String get leaveAComment {
+    return Intl.message(
+      'Leave a comment',
+      name: 'leaveAComment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Post details`
+  String get postDetails {
+    return Intl.message(
+      'Post details',
+      name: 'postDetails',
       desc: '',
       args: [],
     );

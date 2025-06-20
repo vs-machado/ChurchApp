@@ -20,6 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(count) =>
+      "${Intl.plural(count, zero: '', one: 'count', other: '${count}')}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "anErrorOccurred": MessageLookupByLibrary.simpleMessage(
@@ -37,8 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Error: This email has already been registered.",
     ),
     "enter": MessageLookupByLibrary.simpleMessage("Enter"),
+    "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
     "haveAnAccount": MessageLookupByLibrary.simpleMessage(
-      "Already have an account?",
+      "Already have an account? ",
     ),
     "homePage": MessageLookupByLibrary.simpleMessage("Home page"),
     "incorrectPassword": MessageLookupByLibrary.simpleMessage(
@@ -47,7 +51,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "insertAValidEmail": MessageLookupByLibrary.simpleMessage(
       "Enter a valid email.",
     ),
+    "leaveAComment": MessageLookupByLibrary.simpleMessage("Leave a comment"),
+    "likesCount": m0,
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "nameFieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
+      "The name field can\'t be empty.",
+    ),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No internet connection. Please check your network and try again.",
     ),
@@ -59,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordsAreNotTheSame": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match. Please try again.",
     ),
+    "postDetails": MessageLookupByLibrary.simpleMessage("Post details"),
     "postsLoaded": MessageLookupByLibrary.simpleMessage("Posts loaded."),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "registerEmailPassword": MessageLookupByLibrary.simpleMessage(
