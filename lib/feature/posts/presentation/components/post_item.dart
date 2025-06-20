@@ -181,15 +181,13 @@ class _PostItemState extends State<PostItem> with TickerProviderStateMixin {
                   child: CachedNetworkImage(
                     cacheManager: CustomCacheManager.instance,
                     imageUrl: widget.post.photoUrl!,
-                    placeholder:
-                        (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
                     errorWidget:
                         (context, url, error) => const Icon(Icons.error),
                     width: double.infinity,
                     height: 250,
                     // ✅ Fixed height to remove blank space issues
                     fit: BoxFit.cover,
+                    fadeInDuration: Duration.zero,
                   ),
                 ),
               ),

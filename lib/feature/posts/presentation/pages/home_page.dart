@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../generated/l10n.dart';
+import '../components/create_post.dart';
 import '../components/post_item.dart';
 import '../models/post_ui.dart';
 
@@ -68,6 +69,18 @@ class _HomePageState extends ConsumerState<HomePage> {
         ],
       ),
       body: _buildBody(context, viewModel),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            useSafeArea: true,
+            barrierColor: Colors.white.withValues(alpha: 0.0),
+            isScrollControlled: true,
+            builder: (context) => const CreatePost(),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
